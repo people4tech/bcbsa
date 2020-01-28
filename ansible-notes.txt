@@ -1,0 +1,76 @@
+Ansible Installation on EC2
+===========================
+
+pip install ansible
+
+mkdir -p /etc/ansible/
+
+vi /etc/ansible/hosts
+
+	Add the following content
+
+[Servers]
+172.31.88.37
+
+//The above is client IP
+
+
+===========================================
+
+PLEASE ADD SSH KEY FROM MASTER TO CLIENT.
+
+And in the client enable root permission login
+vi /etc/ssh/sshd_config
+
+//uncomment root login and restart the sshd 
+/etc/init.d/sshd restart
+
+============================================
+
+From Server to test the connectivity
+ansible -m ping Servers
+
+And to check remote execution of commands such as :
+ansible -m command -a 'df -h' Servers
+
+and to get remote architecture
+ansible -m setup 172.31.88.37
+
+=============================================
+
+Sample Play book
+
+vi /etc/ansible/apache.yml
+
+---
+- hosts: Servers
+  vars:
+    http_port: 80
+    max_clients: 200
+  remote_user: root
+  tasks:
+  - name: ensure apache is at the latest version
+    yum:
+      name: httpd
+      state: latest
+    notify:
+    - restart apache
+  - name: ensure apache is running (and enable it at boot)
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+  handlers:
+    - name: restart apache
+      service:
+        name: httpd
+        state: restarted
+
+
+// To execute from the server
+
+ansible-playbook -k -K apache.yml
+
+// To Validate YAML
+
+http://www.yamllint.com/
