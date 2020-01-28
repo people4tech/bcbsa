@@ -1,0 +1,1102 @@
+login as: ec2-user
+Authenticating with public key "imported-openssh-key"
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-ami/2018.03-release-notes/
+No packages needed for security; 5 packages available
+Run "sudo yum update" to apply all updates.
+[ec2-user@ip-172-31-46-220 ~]$
+[ec2-user@ip-172-31-46-220 ~]$
+[ec2-user@ip-172-31-46-220 ~]$ sudo su -
+[root@ip-172-31-46-220 ~]#
+[root@ip-172-31-46-220 ~]#
+[root@ip-172-31-46-220 ~]# pip install ansible
+Collecting ansible
+  Downloading https://files.pythonhosted.org/packages/d7/d7/5afcb906038cd8a217ac      57110055e27000c5cfe05ecafe969aaa119d1652/ansible-2.9.4.tar.gz (14.2MB)
+    100% |████████████████████████████████| 14.2MB 81kB/s
+Requirement already satisfied: jinja2 in /usr/lib/python2.7/dist-packages (from       ansible)
+Requirement already satisfied: PyYAML in /usr/lib64/python2.7/dist-packages (fro      m ansible)
+Collecting cryptography (from ansible)
+  Downloading https://files.pythonhosted.org/packages/e2/67/4597fc5d5de01bb44887      844647ab8e73239079dd478c35c52d58a9eb3d45/cryptography-2.8-cp27-cp27mu-manylinux1      _x86_64.whl (2.3MB)
+    100% |████████████████████████████████| 2.3MB 503kB/s
+Requirement already satisfied: markupsafe in /usr/lib64/python2.7/dist-packages       (from jinja2->ansible)
+Collecting cffi!=1.11.3,>=1.8 (from cryptography->ansible)
+  Downloading https://files.pythonhosted.org/packages/93/5d/c4f950891251e4789290      36ca07b22f0b10324460c1d0a4434c584481db51/cffi-1.13.2-cp27-cp27mu-manylinux1_x86_      64.whl (384kB)
+    100% |████████████████████████████████| 389kB 2.6MB/s
+Requirement already satisfied: six>=1.4.1 in /usr/lib/python2.7/dist-packages (f      rom cryptography->ansible)
+Collecting ipaddress; python_version < "3" (from cryptography->ansible)
+  Downloading https://files.pythonhosted.org/packages/c2/f8/49697181b1651d8347d2      4c095ce46c7346c37335ddc7d255833e7cde674d/ipaddress-1.0.23-py2.py3-none-any.whl
+Collecting enum34; python_version < "3" (from cryptography->ansible)
+  Downloading https://files.pythonhosted.org/packages/c5/db/e56e6b4bbac7c4a06de1      c50de6fe1ef3810018ae11732a50f15f62c7d050/enum34-1.1.6-py2-none-any.whl
+Collecting pycparser (from cffi!=1.11.3,>=1.8->cryptography->ansible)
+  Downloading https://files.pythonhosted.org/packages/68/9e/49196946aee219aead12      90e00d1e7fdeab8567783e83e1b9ab5585e6206a/pycparser-2.19.tar.gz (158kB)
+    100% |████████████████████████████████| 163kB 6.7MB/s
+Installing collected packages: pycparser, cffi, ipaddress, enum34, cryptography,       ansible
+  Running setup.py install for pycparser ... done
+  Running setup.py install for ansible ... done
+Successfully installed ansible-2.9.4 cffi-1.13.2 cryptography-2.8 enum34-1.1.6 i      paddress-1.0.23 pycparser-2.19
+You are using pip version 9.0.3, however version 20.0.2 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+[root@ip-172-31-46-220 ~]#
+[root@ip-172-31-46-220 ~]#
+[root@ip-172-31-46-220 ~]#
+[root@ip-172-31-46-220 ~]# which ansible
+/usr/local/bin/ansible
+[root@ip-172-31-46-220 ~]# ansible -version
+usage: ansible [-h] [--version] [-v] [-b] [--become-method BECOME_METHOD]
+               [--become-user BECOME_USER] [-K] [-i INVENTORY] [--list-hosts]
+               [-l SUBSET] [-P POLL_INTERVAL] [-B SECONDS] [-o] [-t TREE] [-k]
+               [--private-key PRIVATE_KEY_FILE] [-u REMOTE_USER]
+               [-c CONNECTION] [-T TIMEOUT]
+               [--ssh-common-args SSH_COMMON_ARGS]
+               [--sftp-extra-args SFTP_EXTRA_ARGS]
+               [--scp-extra-args SCP_EXTRA_ARGS]
+               [--ssh-extra-args SSH_EXTRA_ARGS] [-C] [--syntax-check] [-D]
+               [-e EXTRA_VARS] [--vault-id VAULT_IDS]
+               [--ask-vault-pass | --vault-password-file VAULT_PASSWORD_FILES]
+               [-f FORKS] [-M MODULE_PATH] [--playbook-dir BASEDIR]
+               [-a MODULE_ARGS] [-m MODULE_NAME]
+               pattern
+ansible: error: too few arguments
+[root@ip-172-31-46-220 ~]# ansible --version
+ansible 2.9.4
+  config file = None
+  configured module search path = [u'/root/.ansible/plugins/modules', u'/usr/sha      re/ansible/plugins/modules']
+  ansible python module location = /usr/local/lib/python2.7/site-packages/ansibl      e
+  executable location = /usr/local/bin/ansible
+  python version = 2.7.16 (default, Oct 14 2019, 21:26:56) [GCC 4.8.5 20150623 (      Red Hat 4.8.5-28)]
+[root@ip-172-31-46-220 ~]#
+[root@ip-172-31-46-220 ~]#
+[root@ip-172-31-46-220 ~]#
+[root@ip-172-31-46-220 ~]# history
+    1  pip install ansible
+    2  which ansible
+    3  ansible -version
+    4  ansible --version
+    5  history
+[root@ip-172-31-46-220 ~]# which ansible
+/usr/local/bin/ansible
+[root@ip-172-31-46-220 ~]# export ansible=/usr/local/bin/ansible^C
+[root@ip-172-31-46-220 ~]# echo $ansible
+
+[root@ip-172-31-46-220 ~]# echo $JAVA_HOME
+/usr/lib/jvm/jre
+[root@ip-172-31-46-220 ~]# which ansible
+/usr/local/bin/ansible
+[root@ip-172-31-46-220 ~]# ll /usr/local/bin/ansible
+-rwxr-xr-x 1 root root 5935 Jan 28 08:27 /usr/local/bin/ansible
+[root@ip-172-31-46-220 ~]# cd /usr/bin/
+[root@ip-172-31-46-220 bin]# ll
+total 117576
+-rwxr-xr-x 1 root root      36184 Feb 25  2016 [
+-rwxr-xr-x 1 root root     105408 Mar 20  2019 a2p
+-rwxr-xr-x 1 root root      21888 Sep 10  2014 ac
+-rwxr-xr-x 1 root root      14664 Mar 27  2017 acpi_listen
+-rwxr-xr-x 1 root root      23488 Sep 10  2014 addftinfo
+-rwxr-xr-x 1 root root      28248 Sep  7  2017 addr2line
+-rwxr-xr-x 1 root root      69688 Jan  5  2012 afs5log
+-rwxr-xr-x 1 root root   20626704 Dec 10 19:17 amazon-ssm-agent
+lrwxrwxrwx 1 root root          6 Dec 19 21:26 apropos -> whatis
+-rwxr-xr-x 1 root root      56920 Sep  7  2017 ar
+-rwxr-xr-x 1 root root     353504 Sep  7  2017 as
+lrwxrwxrwx 1 root root         25 Dec 19 21:26 asadmin -> /etc/alternatives/asad      min
+-rwxr-xr-x 1 root root      11988 Nov  7  2017 asadmin-2.7
+-rwxr-xr-x 1 root root      28096 Jan  6  2012 aserver
+-rwsr-xr-x 1 root root      53536 Aug 16  2016 at
+lrwxrwxrwx 1 root root          2 Dec 19 21:26 atq -> at
+lrwxrwxrwx 1 root root          2 Dec 19 21:26 atrm -> at
+-rwxr-xr-x 1 root root       9392 Aug 20  2015 attr
+-rwxr-xr-x 1 root root      15208 Mar  8  2017 aulast
+-rwxr-xr-x 1 root root       9448 Mar  8  2017 aulastlog
+-rwxr-xr-x 1 root root       7744 Mar  8  2017 ausyscall
+-rwxr-xr-x 1 root root      30064 Mar  8  2017 auvirt
+lrwxrwxrwx 1 root root         14 Dec 19 21:25 awk -> ../../bin/gawk
+-rwxr-xr-x 1 root root        817 Feb 15  2019 aws
+-rwxr-xr-x 1 root root       1138 Feb 15  2019 aws_completer
+-rwxr-xr-x 1 root root      33152 Feb 25  2016 base64
+lrwxrwxrwx 1 root root         10 Dec 19 21:25 bashbug -> bashbug-64
+-rwxr-xr-x 1 root root       6933 Aug 30  2017 bashbug-64
+-rwxr-xr-x 1 root root        137 Aug 16  2016 batch
+-rwxr-xr-x 1 root root      82528 Jan 18  2011 bc
+-rwxr-xr-x 1 root root       7080 Jan  6  2012 bdftopcf
+-rwxr-xr-x 1 root root      66080 Nov 27  2013 berkeley_db_svc
+-rwxr-xr-x 1 root root       1538 Sep  9  2014 build-classpath
+-rwxr-xr-x 1 root root        383 Sep 19  2006 build-classpath-directory
+-rwxr-xr-x 1 root root       1572 Sep 19  2006 build-jar-repository
+lrwxrwxrwx 1 root root         30 Dec 19 21:26 bundle_image -> /etc/alternatives      /bundle_image
+-rwxr-xr-x 1 root root       1554 Nov  7  2017 bundle_image-2.7
+lrwxrwxrwx 1 root root          5 Dec 19 21:25 bunzip2 -> bzip2
+lrwxrwxrwx 1 root root          5 Dec 19 21:25 bzcat -> bzip2
+lrwxrwxrwx 1 root root          6 Dec 19 21:25 bzcmp -> bzdiff
+-rwxr-xr-x 1 root root       2128 Jan 15  2011 bzdiff
+-rwxr-xr-x 1 root root       1677 Jan 15  2011 bzgrep
+-rwxr-xr-x 1 root root      32936 Jan 15  2011 bzip2
+-rwxr-xr-x 1 root root      10872 Jan 15  2011 bzip2recover
+lrwxrwxrwx 1 root root          6 Dec 19 21:25 bzless -> bzmore
+-rwxr-xr-x 1 root root       1259 Jan 15  2011 bzmore
+-rwxr-xr-x 2 root root      36607 Mar 20  2019 c2ph
+-rwxr-xr-x 1 root root      32456 Aug 24 00:12 cal
+-rwxr-xr-x 1 root root       1644 Dec  5 23:47 ca-legacy
+lrwxrwxrwx 1 root root          3 Dec 19 21:25 captoinfo -> tic
+-rwxr-xr-x 1 root root       3336 Nov  7 19:53 catchsegv
+-rwxr-xr-x 1 root root      33352 Aug 28  2014 catman
+-rwxr-xr-x 1 root root       5696 Nov 16 01:55 centrino-decode
+-rwxr-xr-x 1 root root     168592 Oct 23  2018 certutil
+lrwxrwxrwx 1 root root         25 Dec 19 21:26 cfadmin -> /etc/alternatives/cfad      min
+-rwxr-xr-x 1 root root       3444 Nov  7  2017 cfadmin-2.7
+-rwxr-xr-x 1 root root      23888 Sep  7  2017 c++filt
+-rwxr-xr-x 1 root root      14640 Aug  5  2015 chacl
+-rwsr-xr-x 1 root root      66352 Jan  5  2012 chage
+-rwxr-xr-x 1 root root      11080 Oct  1  2018 chattr
+-rwxr-xr-x 1 root root      58656 Feb 25  2016 chcon
+-rwxr-xr-x 1 root root       3329 Sep 19  2006 check-binary-files
+-rwxr-xr-x 1 root root     300128 Mar 18  2013 checkmodule
+-rwxr-xr-x 1 root root     307648 Mar 18  2013 checkpolicy
+-rws--x--x 1 root root      22808 Aug 24 00:12 chfn
+-rwxr-xr-x 1 root root      35960 Aug 24 00:12 chmem
+-rwxr-xr-x 1 root root      26504 Aug 24 00:12 chrt
+-rws--x--x 1 root root      22744 Aug 24 00:12 chsh
+-rwxr-xr-x 1 root root       6744 Feb 19  2011 chvt
+-rwxr-xr-x 1 root root      28800 Feb 25  2016 cksum
+-rwxr-xr-x 1 root root      13219 Sep 19  2006 clean-binary-files
+-rwxr-xr-x 1 root root       5208 Aug 17  2016 clear
+-rwxr-xr-x 1 root root      22365 Oct  4  2018 cloud-init
+-rwxr-xr-x 1 root root         49 Oct  4  2018 cloud-init-cfg
+-rwxr-xr-x 1 root root       1875 Oct  4  2018 cloud-init-per
+-rwxr-xr-x 1 root root      44096 Aug 18  2015 cmp
+-rwxr-xr-x 1 root root     102224 Oct 23  2018 cmsutil
+-rwxr-xr-x 1 root root      21976 Aug 24 00:12 col
+-rwxr-xr-x 1 root root      11008 Aug 24 00:12 colcrt
+-rwxr-xr-x 1 root root      18000 Aug 24 00:12 colrm
+-rwxr-xr-x 1 root root      23920 Aug 24 00:12 column
+-rwxr-xr-x 1 root root      32256 Feb 25  2016 comm
+-rwxr-xr-x 1 root root      68496 Nov 16 01:55 cpupower
+lrwxrwxrwx 1 root root         20 Dec 19 21:26 cq -> /etc/alternatives/cq
+-rwxr-xr-x 1 root root       3053 Nov  7  2017 cq-2.7
+-rwxr-xr-x 1 root root       4656 Sep 19  2006 create-jar-links
+-rwxr-xr-x 1 root root     114352 Oct 23  2018 crlutil
+-rwsr-xr-x 1 root root      51792 Sep 28  2016 crontab
+-rwxr-xr-x 1 root root      44832 Feb 25  2016 csplit
+-rwxr-xr-x 1 root root     197048 Sep 27 21:53 curl
+lrwxrwxrwx 1 root root         13 Dec 19 21:25 cut -> ../../bin/cut
+lrwxrwxrwx 1 root root         24 Dec 19 21:26 cwutil -> /etc/alternatives/cwuti      l
+-rwxr-xr-x 1 root root       5045 Nov  7  2017 cwutil-2.7
+-rwxr-xr-x 1 root root       7960 Nov 27  2013 db_archive
+-rwxr-xr-x 1 root root       9880 Nov 27  2013 db_checkpoint
+-rwxr-xr-x 1 root root      22096 Nov 27  2013 db_codegen
+-rwxr-xr-x 1 root root       9864 Nov 27  2013 db_deadlock
+-rwxr-xr-x 1 root root      11744 Nov 27  2013 db_dump
+-rwxr-xr-x 1 root root      61984 Nov 27  2013 db_dump185
+-rwxr-xr-x 1 root root      17160 Nov 27  2013 db_hotbackup
+-rwxr-xr-x 1 root root      23272 Nov 27  2013 db_load
+-rwxr-xr-x 1 root root      65200 Nov 27  2013 db_printlog
+-rwxr-xr-x 1 root root       9832 Nov 27  2013 db_recover
+-rwxr-xr-x 1 root root      10840 Nov 27  2013 db_stat
+-rwxr-xr-x 1 root root       8584 Nov 27  2013 db_upgrade
+-rwxr-xr-x 1 root root       9000 Nov 27  2013 db_verify
+-rwxr-xr-x 1 root root      43816 Jan 18  2011 dc
+-rwxr-xr-x 1 root root       7192 Feb 19  2011 deallocvt
+-rwxr-xr-x 1 root root       8074 Aug  8  2018 debuginfo-install
+-rwxr-xr-x 1 root root     193512 Aug 18  2015 diff
+-rwxr-xr-x 1 root root      56552 Aug 18  2015 diff3
+-rwxr-xr-x 1 root root       1233 Sep 19  2006 diff-jars
+-rwxr-xr-x 1 root root     121840 Jun 21  2019 dig
+-rwxr-xr-x 1 root root     113440 Feb 25  2016 dir
+-rwxr-xr-x 1 root root      37088 Feb 25  2016 dircolors
+-rwxr-xr-x 1 root root      25792 Feb 25  2016 dirname
+-rwxr-xr-x 1 root root     105120 Feb 25  2016 du
+-rwxr-xr-x 1 root root    2838688 Sep  7  2017 dwp
+lrwxrwxrwx 1 root root         31 Dec 19 21:26 dynamodb_dump -> /etc/alternative      s/dynamodb_dump
+-rwxr-xr-x 1 root root       2133 Nov  7  2017 dynamodb_dump-2.7
+lrwxrwxrwx 1 root root         31 Dec 19 21:26 dynamodb_load -> /etc/alternative      s/dynamodb_load
+-rwxr-xr-x 1 root root       3503 Nov  7  2017 dynamodb_load-2.7
+lrwxrwxrwx 1 root root         30 Dec 19 21:26 easy_install -> /etc/alternatives      /easy_install
+-rwxr-xr-x 1 root root        414 Aug 25  2017 easy_install-2.7
+-rwxr-xr-x 1 root root      44464 Aug 24 00:12 eject
+lrwxrwxrwx 1 root root         26 Dec 19 21:26 elbadmin -> /etc/alternatives/elb      admin
+-rwxr-xr-x 1 root root       9693 Nov  7  2017 elbadmin-2.7
+-rwxr-xr-x 1 root root      29320 Sep  7  2017 elfedit
+-rwxr-xr-x 1 root root        235 Dec 13  2017 enable-ec2-spot-hibernation
+lrwxrwxrwx 1 root root         13 Dec 19 21:25 env -> ../../bin/env
+-rwxr-xr-x 1 root root     138584 Sep 10  2014 eqn
+-rwxr-xr-x 1 root root       2686 Sep 10  2014 eqn2graph
+lrwxrwxrwx 1 root root         21 Dec 19 21:25 erb -> /etc/alternatives/erb
+-rwxr-xr-x 1 root root       4396 Jul 15  2019 erb2.0
+lrwxrwxrwx 1 root root          3 Dec 19 21:26 ex -> vim
+-rwxr-xr-x 1 root root      29952 Feb 25  2016 expand
+-rwxr-xr-x 1 root root      36352 Feb 25  2016 expr
+-rwxr-xr-x 1 root root      92096 Feb 25  2016 factor
+-rwxr-xr-x 1 root root      22408 Aug 24 00:12 fallocate
+-rwxr-xr-x 1 root root      13488 Mar 12  2015 fc-cache
+-rwxr-xr-x 1 root root      11528 Mar 12  2015 fc-cat
+-rwxr-xr-x 1 root root       9160 Mar 12  2015 fc-list
+-rwxr-xr-x 1 root root      11104 Mar 12  2015 fc-match
+-rwxr-xr-x 1 root root       7880 Mar 12  2015 fc-query
+-rwxr-xr-x 1 root root       8216 Mar 12  2015 fc-scan
+lrwxrwxrwx 1 root root         28 Dec 19 21:26 fetch_file -> /etc/alternatives/f      etch_file
+-rwxr-xr-x 1 root root       1873 Nov  7  2017 fetch_file-2.7
+-rwxr-xr-x 1 root root       7312 Feb 19  2011 fgconsole
+-rwxr-xr-x 1 root root      20312 Nov 21 17:14 file
+lrwxrwxrwx 1 root root         14 Dec 19 21:25 find -> ../../bin/find
+-rwxr-xr-x 1 root root      23614 Mar 20  2019 find2perl
+-rwxr-xr-x 1 root root        749 Sep 19  2006 find-jar
+-rwxr-xr-x 1 root root       4374 Aug  8  2018 find-repos-of-install
+-rwxr-xr-x 1 root root      11048 Oct 30  2013 fipscheck
+-rwxr-xr-x 1 root root       9800 Oct 30  2013 fipshmac
+-rwxr-xr-x 1 root root      21848 Aug 24 00:12 flock
+-rwxr-xr-x 1 root root      34304 Feb 25  2016 fmt
+-rwxr-xr-x 1 root root      32320 Feb 25  2016 fold
+-rwxr-xr-x 1 root root      33272 Jan  6  2012 fonttosfnt
+-rwxr-xr-x 1 root root      35960 Sep 18  2018 formail
+-rwxr-xr-x 1 root root       9840 Aug 14  2018 free
+-rwxr-xr-x 1 root root      27504 Aug 17  2016 funzip
+lrwxrwxrwx 1 root root         14 Dec 19 21:25 gawk -> ../../bin/gawk
+-rwxr-xr-x 1 root root      33344 Aug  5 20:27 gdbus
+-rwxr-xr-x 1 root root       7048 Sep 10  2014 gdiffmk
+lrwxrwxrwx 1 root root         21 Dec 19 21:25 gem -> /etc/alternatives/gem
+-rwxr-xr-x 1 root root        545 Jul 15  2019 gem2.0
+-rwxr-xr-x 1 root root      23064 Nov  7 20:19 gencat
+lrwxrwxrwx 1 root root          3 Dec 19 21:25 geqn -> eqn
+-rwxr-xr-x 1 root root      22864 Nov  7 20:19 getconf
+-rwxr-xr-x 1 root root      27832 Nov  7 20:19 getent
+-rwxr-xr-x 1 root root      23656 Aug  5  2015 getfacl
+-rwxr-xr-x 1 root root      17672 Aug 20  2015 getfattr
+-rwxr-xr-x 1 root root       7464 Feb 19  2011 getkeycodes
+-rwxr-xr-x 1 root root       5960 Feb 18  2013 get_module
+-rwxr-xr-x 1 root root      13200 Aug 24 00:12 getopt
+-rwxr-xr-x 1 root root      13341 Jun  7  2012 get_reference_source
+lrwxrwxrwx 1 root root          7 Dec 19 21:25 gindxbib -> indxbib
+-rwxr-xr-x 1 root root       8120 Aug  5 20:27 gio-querymodules-64
+lrwxrwxrwx 1 root root         25 Dec 19 21:26 glacier -> /etc/alternatives/glac      ier
+-rwxr-xr-x 1 root root       5246 Nov  7  2017 glacier-2.7
+-rwxr-xr-x 1 root root      40424 Aug  5 20:27 glib-compile-schemas
+lrwxrwxrwx 1 root root          7 Dec 19 21:25 glookbib -> lookbib
+lrwxrwxrwx 1 root root          4 Dec 19 21:25 gmake -> make
+lrwxrwxrwx 1 root root          4 Dec 19 21:25 gneqn -> neqn
+lrwxrwxrwx 1 root root          5 Dec 19 21:25 gnroff -> nroff
+-rwsr-xr-x 1 root root      71480 Jan  5  2012 gpasswd
+lrwxrwxrwx 1 root root         21 Dec 19 21:26 gpg -> /etc/alternatives/gpg
+-rwxr-xr-x 1 root root     741184 Aug 24  2018 gpg2
+-rwxr-xr-x 1 root root     289824 Aug 24  2018 gpg-agent
+-rwxr-xr-x 1 root root     135904 Aug 24  2018 gpgconf
+-rwxr-xr-x 1 root root     146440 Aug 24  2018 gpg-connect-agent
+-rwxr-xr-x 1 root root      19080 Oct 17  2013 gpg-error
+-rwxr-xr-x 1 root root      23424 Aug 24  2018 gpgparsemail
+lrwxrwxrwx 1 root root         26 Dec 19 21:26 gpgsplit -> /etc/alternatives/gpg      split
+-rwxr-xr-x 1 root root      48592 Aug 24  2018 gpgsplit2
+lrwxrwxrwx 1 root root         22 Dec 19 21:26 gpgv -> /etc/alternatives/gpgv
+-rwxr-xr-x 1 root root     342704 Aug 24  2018 gpgv2
+lrwxrwxrwx 1 root root         25 Dec 19 21:26 gpg-zip -> /etc/alternatives/gpg-      zip
+-rwxr-xr-x 1 root root       3303 Aug 24  2018 gpg-zip2
+lrwxrwxrwx 1 root root          3 Dec 19 21:25 gpic -> pic
+-rwxr-xr-x 1 root root      95064 Sep  7  2017 gprof
+-rwxr-xr-x 1 root root       2447 Sep 10  2014 grap2graph
+lrwxrwxrwx 1 root root          5 Dec 19 21:25 grefer -> refer
+-rwxr-xr-x 1 root root      72376 Sep 10  2014 grn
+-rwxr-xr-x 1 root root      94144 Sep 10  2014 grodvi
+-rwxr-xr-x 1 root root      77368 Sep 10  2014 groff
+-rwxr-xr-x 1 root root     105856 Sep 10  2014 grolbp
+-rwxr-xr-x 1 root root      91232 Sep 10  2014 grolj4
+-rwxr-xr-x 1 root root     134904 Sep 10  2014 grops
+-rwxr-xr-x 1 root root      92480 Sep 10  2014 grotty
+-rwxr-xr-x 1 root root      28064 Feb 25  2016 groups
+-rwxr-xr-x 1 root root      16069 Apr 22  2016 growpart
+-rwxr-xr-x 1 root root      19648 Aug  5 20:27 gsettings
+lrwxrwxrwx 1 root root          6 Dec 19 21:25 gsoelim -> soelim
+lrwxrwxrwx 1 root root          3 Dec 19 21:25 gtbl -> tbl
+lrwxrwxrwx 1 root root          5 Dec 19 21:25 gtroff -> troff
+lrwxrwxrwx 1 root root         16 Dec 19 21:25 gunzip -> ../../bin/gunzip
+-rwxr-xr-x 1 root root       5931 Aug 17  2017 gzexe
+lrwxrwxrwx 1 root root         14 Dec 19 21:25 gzip -> ../../bin/gzip
+-rwxr-xr-x 1 root root      28310 Mar 20  2019 h2ph
+-rwxr-xr-x 1 root root      36480 Feb 25  2016 head
+-rwxr-xr-x 1 root root      29368 Aug 24 00:12 hexdump
+-rwxr-xr-x 1 root root      21949 Dec 13  2017 hibagent
+-rwxr-xr-x 1 root root      15547 Nov 12  2018 hibinit-agent
+-rwxr-xr-x 1 root root     108048 Jun 21  2019 host
+-rwxr-xr-x 1 root root      25152 Feb 25  2016 hostid
+lrwxrwxrwx 1 root root         25 Dec 19 21:25 hoststat -> ../sbin/sendmail.send      mail
+-rwxr-xr-x 1 root root     111872 Sep 10  2014 hpftodit
+lrwxrwxrwx 1 root root          7 Dec 19 21:25 i386 -> setarch
+-rwxr-xr-x 1 root root      60312 Nov  7 20:19 iconv
+-rwxr-xr-x 1 root root      36576 Feb 25  2016 id
+-rwxr-xr-x 1 root root      32488 Jan 16  2011 idn
+-rwxr-xr-x 1 root root       3091 Oct 14  2012 igawk
+-rwxr-xr-x 1 root root      31944 Sep 10  2014 indxbib
+-rwxr-xr-x 1 root root     260792 Sep 15  2014 info
+-rwxr-xr-x 1 root root      50768 Aug 17  2016 infocmp
+-rwxr-xr-x 1 root root      19384 Sep 15  2014 infokey
+lrwxrwxrwx 1 root root          3 Dec 19 21:25 infotocap -> tic
+-rwxr-xr-x 1 root root     134280 Feb 25  2016 install
+lrwxrwxrwx 1 root root         33 Dec 19 21:26 instance_events -> /etc/alternati      ves/instance_events
+-rwxr-xr-x 1 root root       5778 Nov  7  2017 instance_events-2.7
+-rwxr-xr-x 1 root root      19704 Aug 24 00:12 ionice
+-rwxr-xr-x 1 root root      20992 Aug 24 00:12 ipcmk
+-rwxr-xr-x 1 root root      22384 Aug 24 00:12 ipcrm
+-rwxr-xr-x 1 root root      44128 Aug 24 00:12 ipcs
+lrwxrwxrwx 1 root root         21 Dec 19 21:25 irb -> /etc/alternatives/irb
+-rwxr-xr-x 1 root root        317 Jul 15  2019 irb2.0
+-rwxr-xr-x 1 root root      19376 Aug 24 00:12 isosize
+lrwxrwxrwx 1 root root         22 Dec 19 21:25 java -> /etc/alternatives/java
+lrwxrwxrwx 1 root root         47 Dec 19 21:25 java7 -> //usr/lib/jvm/jre-1.7.0-      openjdk.x86_64/bin/java
+-rwxr-xr-x 1 root root      44704 Feb 25  2016 join
+lrwxrwxrwx 1 root root         20 Dec 19 21:26 jp -> /etc/alternatives/jp
+lrwxrwxrwx 1 root root          9 Dec 19 21:25 jp-2.7 -> jp.py-2.7
+lrwxrwxrwx 1 root root         23 Dec 19 21:26 jp.py -> /etc/alternatives/jp.py
+-rwxr-xr-x 1 root root       1677 May  8  2017 jp.py-2.7
+-rwxr-xr-x 1 root root       1757 Sep 19  2006 jvmjar
+-rwxr-xr-x 1 root root       8224 Feb 19  2011 kbdrate
+lrwxrwxrwx 1 root root         25 Dec 19 21:25 keytool -> /etc/alternatives/keyt      ool
+lrwxrwxrwx 1 root root         50 Dec 19 21:25 keytool7 -> //usr/lib/jvm/jre-1.7      .0-openjdk.x86_64/bin/keytool
+lrwxrwxrwx 1 root root         14 Dec 19 21:25 kill -> ../../bin/kill
+-rwxr-xr-x 1 root root      21688 Sep 10  2014 killall
+lrwxrwxrwx 1 root root         31 Dec 19 21:26 kill_instance -> /etc/alternative      s/kill_instance
+-rwxr-xr-x 1 root root        924 Nov  7  2017 kill_instance-2.7
+-rwxr-xr-x 1 root root      83432 Sep  4  2015 kmod
+-rwxr-xr-x 1 root root      16944 Feb 18  2016 last
+lrwxrwxrwx 1 root root          4 Dec 19 21:25 lastb -> last
+-rwxr-xr-x 1 root root      20088 Sep 10  2014 lastcomm
+-rwxr-xr-x 1 root root      14352 Jan  5  2012 lastlog
+lrwxrwxrwx 1 root root         33 Dec 19 21:26 launch_instance -> /etc/alternati      ves/launch_instance
+-rwxr-xr-x 1 root root      10605 Nov  7  2017 launch_instance-2.7
+-rwxr-xr-x 1 root root      13368 Aug 26  2015 lchfn
+-rwxr-xr-x 1 root root      11280 Aug 26  2015 lchsh
+lrwxrwxrwx 1 root root         20 Dec 19 21:25 ld -> /etc/alternatives/ld
+-rwxr-xr-x 1 root root     865360 Sep  7  2017 ld.bfd
+-rwxr-xr-x 1 root root       5298 Nov  7 19:53 ldd
+-rwxr-xr-x 1 root root    4579616 Sep  7  2017 ld.gold
+-rwxr-xr-x 1 root root     150128 Sep 10  2014 less
+-rwxr-xr-x 1 root root       7424 Sep 10  2014 lessecho
+-rwxr-xr-x 1 root root      16344 Sep 10  2014 lesskey
+-rwxr-xr-x 1 root root       2804 Sep 10  2014 lesspipe.sh
+-rwxr-xr-x 1 root root      81808 Aug 28  2014 lexgrog
+lrwxrwxrwx 1 root root          7 Dec 19 21:25 linux32 -> setarch
+lrwxrwxrwx 1 root root          7 Dec 19 21:25 linux64 -> setarch
+lrwxrwxrwx 1 root root         32 Dec 19 21:26 list_instances -> /etc/alternativ      es/list_instances
+-rwxr-xr-x 1 root root       3098 Nov  7  2017 list_instances-2.7
+-rwxr-xr-x 1 root root      40096 Sep 10  2014 lkbib
+-rwxr-xr-x 1 root root      23520 Feb 19  2011 loadunimap
+-rwxr-xr-x 1 root root      38680 Nov  7 20:19 locale
+-rwxr-xr-x 1 root root     322888 Nov  7 20:19 localedef
+-rwxr-sr-x 1 root mail      16808 Sep 18  2018 lockfile
+-rwxr-xr-x 1 root root      24424 Aug 24 00:12 logger
+-rwxr-xr-x 1 root root      25312 Feb 25  2016 logname
+-rwxr-xr-x 1 root root      10160 Aug 24 00:12 look
+-rwxr-xr-x 1 root root      38000 Sep 10  2014 lookbib
+-rwxr-xr-x 1 root root       9232 Oct  1  2018 lsattr
+-rwxr-xr-x 1 root root      56992 Aug 24 00:12 lscpu
+-rwxr-xr-x 1 root root      56712 Aug 24 00:12 lsipc
+-rwxr-xr-x 1 root root      37984 Aug 24 00:12 lslocks
+-rwxr-xr-x 1 root root      48616 Aug 24 00:12 lslogins
+-rwxr-xr-x 1 root root      36904 Aug 24 00:12 lsmem
+-rwxr-xr-x 1 root root      34448 Aug 24 00:12 lsns
+lrwxrwxrwx 1 root root         22 Dec 19 21:26 lss3 -> /etc/alternatives/lss3
+-rwxr-xr-x 1 root root       3444 Nov  7  2017 lss3-2.7
+-rwxr-xr-x 1 root root      13208 Sep 11  2014 lua
+-rwxr-xr-x 1 root root     111664 Sep 11  2014 luac
+lrwxrwxrwx 1 root root         27 Dec 19 21:25 mailq -> /etc/alternatives/mta-ma      ilq
+lrwxrwxrwx 1 root root         25 Dec 19 21:25 mailq.sendmail -> ../sbin/sendmai      l.sendmail
+-rwxr-xr-x 1 root root       5859 Sep 18  2018 mailstat
+-rwxr-xr-x 1 root root     174944 Jan  9  2015 make
+-rwxr-xr-x 1 root root      19032 Nov  7 20:19 makedb
+lrwxrwxrwx 1 root root         15 Dec 19 21:25 makemap -> ../sbin/makemap
+-rwxr-xr-x 1 root root     100976 Aug 28  2014 man
+-rwxr-xr-x 1 root root     117872 Aug 28  2014 mandb
+-rwxr-xr-x 1 root root      28792 Aug 28  2014 manpath
+-rwxr-xr-x 1 root root      16248 Feb 19  2011 mapscrn
+-rwxr-xr-x 1 root root     681076 Apr 22  2016 mbchk
+-rwxr-xr-x 1 root root      12680 Aug 24 00:12 mcookie
+-rwxr-xr-x 1 root root      36800 Feb 25  2016 md5sum
+-rwxr-xr-x 1 root root       9656 Nov 27  2013 memhog
+-rwxr-xr-x 1 root root       6816 Feb 18  2016 mesg
+-rwxr-xr-x 1 root root       8992 Nov 27  2013 migratepages
+-rwxr-xr-x 1 root root      11320 Nov 27  2013 migspeed
+-rwxr-xr-x 1 root root      57088 Feb 25  2016 mkfifo
+-rwxr-xr-x 1 root root        131 Jan  6  2012 mkfontdir
+-rwxr-xr-x 1 root root      30312 Jan  6  2012 mkfontscale
+-rwxr-xr-x 1 root root     153000 Oct 23  2018 modutil
+-rwxr-xr-x 1 root root      11136 Aug 24 00:12 mountpoint
+lrwxrwxrwx 1 root root         23 Dec 19 21:26 mturk -> /etc/alternatives/mturk
+-rwxr-xr-x 1 root root      19148 Nov  7  2017 mturk-2.7
+-rwxr-xr-x 1 root root      23512 Aug 24 00:12 namei
+lrwxrwxrwx 1 root root         14 Dec 19 21:26 nano -> ../../bin/nano
+-rwxr-xr-x 1 root root      22200 Feb 25  2015 nc
+-rwxr-xr-x 1 root root       8350 Aug  8  2018 needs-restarting
+-rwxr-xr-x 1 root root        271 Sep 10  2014 neqn
+lrwxrwxrwx 1 root root         32 Dec 19 21:25 newaliases -> /etc/alternatives/m      ta-newaliases
+lrwxrwxrwx 1 root root         25 Dec 19 21:25 newaliases.sendmail -> ../sbin/se      ndmail.sendmail
+-rwsr-xr-x 1 root root      36144 Jan  5  2012 newgrp
+-rwxr-xr-x 1 root root      36768 Feb 25  2016 nl
+-rwxr-xr-x 1 root root      41288 Sep  7  2017 nm
+-rwxr-xr-x 1 root root      29056 Feb 25  2016 nohup
+-rwxr-xr-x 1 root root      28128 Feb 25  2016 nproc
+-rwxr-xr-x 1 root root       3392 Sep 10  2014 nroff
+-rwxr-xr-x 1 root root      25024 Aug 24 00:12 nsenter
+-rwxr-xr-x 1 root root     109112 Jun 21  2019 nslookup
+-rwxr-xr-x 1 root root      58832 Jun 21  2019 nsupdate
+-rwxr-xr-x 1 root root       5232 May  3  2019 ntpstat
+-rwxr-xr-x 1 root root      25344 Nov 27  2013 numactl
+-rwxr-xr-x 1 root root      35912 Nov 27  2013 numademo
+-rwxr-xr-x 1 root root      24872 Nov 27  2013 numastat
+-rwxr-xr-x 1 root root      62400 Feb 25  2016 numfmt
+-rwxr-xr-x 1 root root     219880 Sep  7  2017 objcopy
+-rwxr-xr-x 1 root root     377592 Sep  7  2017 objdump
+-rwxr-xr-x 1 root root      61984 Feb 25  2016 od
+-rwxr-xr-x 1 root root     234512 Jan 17  2011 oldfind
+-rwxr-xr-x 1 root root       1506 Sep  8  2017 on_ac_power
+lrwxrwxrwx 1 root root          6 Dec 19 21:25 open -> openvt
+-rwxr-xr-x 1 root root     547272 Apr  3  2019 openssl
+-rwxr-xr-x 1 root root      12976 Feb 19  2011 openvt
+lrwxrwxrwx 1 root root         22 Dec 19 21:25 orbd -> /etc/alternatives/orbd
+lrwxrwxrwx 1 root root         47 Dec 19 21:25 orbd7 -> //usr/lib/jvm/jre-1.7.0-      openjdk.x86_64/bin/orbd
+-rwxr-xr-x 1 root root     114536 Sep 10  2014 p11-kit
+lrwxrwxrwx 1 root root         25 Dec 19 21:25 pack200 -> /etc/alternatives/pack      200
+lrwxrwxrwx 1 root root         50 Dec 19 21:25 pack2007 -> //usr/lib/jvm/jre-1.7      .0-openjdk.x86_64/bin/pack200
+-rwxr-xr-x 1 root root      17806 Aug  8  2018 package-cleanup
+-rwsr-xr-x 1 root root      26688 Sep 10  2015 passwd
+-rwxr-xr-x 1 root root      28672 Feb 25  2016 paste
+-rwxr-xr-x 1 root root      28064 Feb 25  2016 pathchk
+-rwxr-xr-x 1 root root      20598 Sep 10  2014 pdfroff
+-rwxr-xr-x 1 root root       9584 Sep 10  2014 peekfd
+-rwxr-xr-x 2 root root       7336 Mar 20  2019 perl
+-rwxr-xr-x 2 root root       7336 Mar 20  2019 perl5.16.3
+-rwxr-xr-x 2 root root      44351 Mar 20  2019 perlbug
+-rwxr-xr-x 1 root root        203 Sep 10  2014 perldoc
+-rwxr-xr-x 2 root root      44351 Mar 20  2019 perlthanks
+-rwxr-xr-x 1 root root      12176 Sep 10  2014 pfbtops
+-rwxr-xr-x 1 root root     375360 Oct 14  2012 pgawk
+-rwxr-xr-x 2 root root      15872 Aug 14  2018 pgrep
+-rwxr-xr-x 1 root root     173176 Sep 10  2014 pic
+-rwxr-xr-x 1 root root       3024 Sep 10  2014 pic2graph
+-rwxr-xr-x 1 root root       8177 Sep 12  2014 piconv
+-rwxr-xr-x 1 root root       2135 Jan  5  2012 pinentry
+-rwxr-xr-x 1 root root      45752 Jan  5  2012 pinentry-curses
+-rwxr-xr-x 1 root root      32896 Feb 25  2016 pinky
+lrwxrwxrwx 1 root root         21 Dec 19 21:26 pip -> /etc/alternatives/pip
+-rwxr-xr-x 1 root root        370 Apr 25  2018 pip-2.7
+-rwxr-xr-x 1 root root      90392 Oct 23  2018 pk12util
+-rwxr-xr-x 1 root root      40128 Jul 12  2013 pkg-config
+-rwxr-xr-x 2 root root      15872 Aug 14  2018 pkill
+-rwxr-xr-x 1 root root       4531 Mar 20  2019 pl2pm
+-rwxr-xr-x 1 root root      14808 Nov  7 20:19 pldd
+-rwxr-xr-x 1 root root      12152 Aug 14  2018 pmap
+-rwxr-xr-x 1 root root        983 Sep  8  2017 pm-is-supported
+-rwxr-xr-x 1 root root       4096 Mar 20  2019 pod2html
+-rwxr-xr-x 1 root root      13581 Sep 12  2014 pod2man
+-rwxr-xr-x 1 root root      11004 Sep 12  2014 pod2text
+-rwxr-xr-x 1 root root       3755 Sep 10  2014 pod2usage
+lrwxrwxrwx 1 root root         53 Dec 19 21:25 policytool7 -> //usr/lib/jvm/jre-      1.7.0-openjdk.x86_64/bin/policytool
+-rwxr-xr-x 1 root root     178624 Sep 10  2014 post-grohtml
+-rwxr-xr-x 1 root root       5688 Nov 16 01:55 powernow-k8-decode
+-rwxr-xr-x 1 root root      65984 Feb 25  2016 pr
+-rwxr-xr-x 1 root root      40096 Sep 10  2014 preconv
+-rwxr-xr-x 1 root root      81504 Sep 10  2014 pre-grohtml
+-rwxr-xr-x 1 root root      25600 Feb 25  2016 printenv
+-rwxr-xr-x 1 root root      48448 Feb 25  2016 printf
+-rwxr-xr-x 1 root root      38528 Aug 24 00:12 prlimit
+-rwxr-xr-x 1 root mail      98024 Sep 18  2018 procmail
+-rwxr-xr-x 1 root root      13392 Sep 10  2014 prtstat
+-rwxr-xr-x 2 root root      53329 Mar 20  2019 psed
+lrwxrwxrwx 1 root root          9 Dec 19 21:25 psfaddtable -> psfxtable
+lrwxrwxrwx 1 root root          9 Dec 19 21:25 psfgettable -> psfxtable
+lrwxrwxrwx 1 root root          9 Dec 19 21:25 psfstriptable -> psfxtable
+-rwxr-xr-x 1 root root      17432 Feb 19  2011 psfxtable
+-rwxr-xr-x 1 root root      23816 Sep 10  2014 pstree
+lrwxrwxrwx 1 root root          6 Dec 19 21:25 pstree.x11 -> pstree
+-rwxr-xr-x 2 root root      36607 Mar 20  2019 pstruct
+-rwxr-xr-x 1 root root      65696 Feb 25  2016 ptx
+lrwxrwxrwx 1 root root         25 Dec 19 21:25 purgestat -> ../sbin/sendmail.sen      dmail
+-rwxr-xr-x 1 root root       6824 Aug 14  2018 pwdx
+-rwxr-xr-x 1 root root       6856 Mar  3  2015 pwmake
+-rwxr-xr-x 1 root root       7328 Mar  3  2015 pwscore
+lrwxrwxrwx 1 root root         32 Dec 19 21:26 pyami_sendmail -> /etc/alternativ      es/pyami_sendmail
+-rwxr-xr-x 1 root root       2617 Nov  7  2017 pyami_sendmail-2.7
+lrwxrwxrwx 1 root root         25 Dec 19 21:26 pybabel -> /etc/alternatives/pyba      bel
+-rwxr-xr-x 1 root root        298 Mar  3  2015 pybabel-2.7
+lrwxrwxrwx 1 root root         23 Dec 19 21:26 pydoc -> /etc/alternatives/pydoc
+lrwxrwxrwx 1 root root          8 Dec 19 21:25 pydoc27 -> pydoc2.7
+-rwxr-xr-x 1 root root         78 Oct 14 21:27 pydoc2.7
+-rwxr-xr-x 1 root root        304 May 27  2016 pyrsa-decrypt-2.7
+-rwxr-xr-x 1 root root        320 May 27  2016 pyrsa-decrypt-bigfile-2.7
+-rwxr-xr-x 1 root root        304 May 27  2016 pyrsa-encrypt-2.7
+-rwxr-xr-x 1 root root        320 May 27  2016 pyrsa-encrypt-bigfile-2.7
+-rwxr-xr-x 1 root root        302 May 27  2016 pyrsa-keygen-2.7
+-rwxr-xr-x 1 root root        306 May 27  2016 pyrsa-priv2pub-2.7
+-rwxr-xr-x 1 root root        298 May 27  2016 pyrsa-sign-2.7
+-rwxr-xr-x 1 root root        302 May 27  2016 pyrsa-verify-2.7
+lrwxrwxrwx 1 root root         26 Dec 19 21:26 pystache -> /etc/alternatives/pys      tache
+-rwxr-xr-x 1 root root        309 Mar  3  2015 pystache-2.7
+lrwxrwxrwx 1 root root         31 Dec 19 21:26 pystache-test -> /etc/alternative      s/pystache-test
+-rwxr-xr-x 1 root root        319 Mar  3  2015 pystache-test-2.7
+lrwxrwxrwx 1 root root         24 Dec 19 21:26 python -> /etc/alternatives/pytho      n
+-rwxr-xr-x 1 root root       5104 Oct 14 21:27 python27
+-rwxr-xr-x 1 root root       5104 Oct 14 21:27 python2.7
+-rwxr-xr-x 1 root root       1846 Oct 14 21:27 python2.7-config
+lrwxrwxrwx 1 root root         31 Dec 19 21:26 python-config -> /etc/alternative      s/python-config
+-rwxr-xr-x 1 root root      82880 Sep 27  2013 quota
+-rwxr-xr-x 1 root root      65856 Sep 27  2013 quotasync
+lrwxrwxrwx 1 root root         22 Dec 19 21:25 rake -> /etc/alternatives/rake
+-rwxr-xr-x 1 root root      56928 Sep  7  2017 ranlib
+lrwxrwxrwx 1 root root         22 Dec 19 21:25 rdoc -> /etc/alternatives/rdoc
+-rwxr-xr-x 1 root root        938 Feb 24  2016 rdoc2.0
+-rwxr-xr-x 1 root root     485504 Sep  7  2017 readelf
+lrwxrwxrwx 1 root root         18 Dec 19 21:25 readlink -> ../../bin/readlink
+-rwxr-xr-x 1 root root      56640 Feb 25  2016 realpath
+-rwxr-xr-x 1 root root       1804 Sep 19  2006 rebuild-jar-repository
+-rwxr-xr-x 1 root root        497 Sep  9  2014 rebuild-security-providers
+-rwxr-xr-x 1 root root     109080 Sep 10  2014 refer
+-rwxr-xr-x 1 root root       9640 Aug 24 00:12 rename
+-rwxr-xr-x 1 root root       9040 Aug 24 00:12 renice
+-rwxr-xr-x 1 root root      11702 Aug  8  2018 repoclosure
+-rwxr-xr-x 1 root root      14304 Aug  8  2018 repodiff
+-rwxr-xr-x 1 root root       4194 Aug  8  2018 repo-graph
+-rwxr-xr-x 1 root root       7046 Aug  8  2018 repomanage
+-rwxr-xr-x 1 root root      57016 Aug  8  2018 repoquery
+-rwxr-xr-x 1 root root      10318 Aug  8  2018 repo-rss
+-rwxr-xr-x 1 root root      14344 Aug  8  2018 reposync
+-rwxr-xr-x 1 root root       8738 Aug  8  2018 repotrack
+lrwxrwxrwx 1 root root          4 Dec 19 21:25 reset -> tset
+-rwxr-xr-x 1 root root      15264 Feb 19  2011 resizecons
+-rwxr-xr-x 1 root root       8904 Aug 24 00:12 rev
+lrwxrwxrwx 1 root root         20 Dec 19 21:25 ri -> /etc/alternatives/ri
+-rwxr-xr-x 1 root root        188 Feb 24  2016 ri2.0
+lrwxrwxrwx 1 root root         27 Dec 19 21:25 rmail -> /etc/alternatives/mta-rm      ail
+-rwxr-xr-x 1 root root      80272 Aug 17  2016 rmail.sendmail
+lrwxrwxrwx 1 root root         22 Dec 19 21:25 rmid -> /etc/alternatives/rmid
+lrwxrwxrwx 1 root root         47 Dec 19 21:25 rmid7 -> //usr/lib/jvm/jre-1.7.0-      openjdk.x86_64/bin/rmid
+lrwxrwxrwx 1 root root         29 Dec 19 21:25 rmiregistry -> /etc/alternatives/      rmiregistry
+lrwxrwxrwx 1 root root         54 Dec 19 21:25 rmiregistry7 -> //usr/lib/jvm/jre      -1.7.0-openjdk.x86_64/bin/rmiregistry
+lrwxrwxrwx 1 root root         15 Dec 19 21:26 rnano -> ../../bin/rnano
+-rwxr-xr-x 1 root root      13952 Aug 17  2017 rngtest
+lrwxrwxrwx 1 root root         25 Dec 19 21:26 route53 -> /etc/alternatives/rout      e53
+-rwxr-xr-x 1 root root       9034 Nov  7  2017 route53-2.7
+-rwxr-xr-x 1 root root      93080 Nov  7 20:19 rpcgen
+-rwxr-xr-x 1 root root       7792 Nov  6 19:05 rpm2cpio
+-rwxr-xr-x 1 root root      11792 Nov  6 19:05 rpmdb
+-rwxr-xr-x 1 root root      11800 Nov  6 19:05 rpmkeys
+lrwxrwxrwx 1 root root         13 Dec 19 21:25 rpmquery -> ../../bin/rpm
+lrwxrwxrwx 1 root root         13 Dec 19 21:25 rpmverify -> ../../bin/rpm
+lrwxrwxrwx 1 root root         26 Dec 19 21:26 rst2html -> /etc/alternatives/rst      2html
+-rwxr-xr-x 1 root root        596 Mar  3  2015 rst2html-2.7
+lrwxrwxrwx 1 root root         27 Dec 19 21:26 rst2latex -> /etc/alternatives/rs      t2latex
+-rwxr-xr-x 1 root root        793 Mar  3  2015 rst2latex-2.7
+lrwxrwxrwx 1 root root         25 Dec 19 21:26 rst2man -> /etc/alternatives/rst2      man
+-rwxr-xr-x 1 root root        602 Mar  3  2015 rst2man-2.7
+lrwxrwxrwx 1 root root         25 Dec 19 21:26 rst2odt -> /etc/alternatives/rst2      odt
+-rwxr-xr-x 1 root root        766 Mar  3  2015 rst2odt-2.7
+lrwxrwxrwx 1 root root         36 Dec 19 21:26 rst2odt_prepstyles -> /etc/altern      atives/rst2odt_prepstyles
+-rwxr-xr-x 1 root root       1700 Mar  3  2015 rst2odt_prepstyles-2.7
+lrwxrwxrwx 1 root root         31 Dec 19 21:26 rst2pseudoxml -> /etc/alternative      s/rst2pseudoxml
+-rwxr-xr-x 1 root root        603 Mar  3  2015 rst2pseudoxml-2.7
+lrwxrwxrwx 1 root root         24 Dec 19 21:26 rst2s5 -> /etc/alternatives/rst2s      5
+-rwxr-xr-x 1 root root        639 Mar  3  2015 rst2s5-2.7
+lrwxrwxrwx 1 root root         27 Dec 19 21:26 rst2xetex -> /etc/alternatives/rs      t2xetex
+-rwxr-xr-x 1 root root        788 Mar  3  2015 rst2xetex-2.7
+lrwxrwxrwx 1 root root         25 Dec 19 21:26 rst2xml -> /etc/alternatives/rst2      xml
+-rwxr-xr-x 1 root root        604 Mar  3  2015 rst2xml-2.7
+lrwxrwxrwx 1 root root         29 Dec 19 21:26 rstpep2html -> /etc/alternatives/      rstpep2html
+-rwxr-xr-x 1 root root        672 Mar  3  2015 rstpep2html-2.7
+-rwxr-xr-x 1 root root     404944 Sep 10  2014 rsync
+lrwxrwxrwx 1 root root         22 Dec 19 21:25 ruby -> /etc/alternatives/ruby
+-rwxr-xr-x 1 root root       5592 Jul 15  2019 ruby2.0
+-rwxr-xr-x 1 root root      29952 Feb 25  2016 runcon
+-rwxr-xr-x 1 root root       1411 Jan  6  2012 run-parts
+lrwxrwxrwx 1 root root          3 Dec 19 21:26 rvim -> vim
+-rwxr-xr-x 2 root root      53329 Mar 20  2019 s2p
+lrwxrwxrwx 1 root root         23 Dec 19 21:26 s3put -> /etc/alternatives/s3put
+-rwxr-xr-x 1 root root      16839 Nov  7  2017 s3put-2.7
+-rwxr-xr-x 1 root root      88168 Oct 23 23:47 scp
+-rwxr-sr-x 1 root screen   378816 Aug 18  2016 screen
+-rwxr-xr-x 1 root root      16096 Aug 24 00:12 script
+-rwxr-xr-x 1 root root      11040 Aug 24 00:12 scriptreplay
+lrwxrwxrwx 1 root root         26 Dec 19 21:26 sdbadmin -> /etc/alternatives/sdb      admin
+-rwxr-xr-x 1 root root       6995 Nov  7  2017 sdbadmin-2.7
+-rwxr-xr-x 1 root root      45768 Aug 18  2015 sdiff
+-rwxr-xr-x 1 root root      19904 Nov  8  2016 secon
+-rwxr-xr-x 1 root root     211664 Mar 18  2013 sedismod
+-rwxr-xr-x 1 root root     147128 Mar 18  2013 sedispol
+-rwxr-xr-x 1 root root     208160 Nov  8  2016 semodule_deps
+-rwxr-xr-x 1 root root      10632 Nov  8  2016 semodule_expand
+-rwxr-xr-x 1 root root      10560 Nov  8  2016 semodule_link
+-rwxr-xr-x 1 root root      15016 Nov  8  2016 semodule_package
+-rwxr-xr-x 1 root root      10544 Nov  8  2016 semodule_unpackage
+-rwxr-xr-x 1 root root      44576 Feb 25  2016 seq
+lrwxrwxrwx 1 root root         28 Dec 19 21:25 servertool -> /etc/alternatives/s      ervertool
+lrwxrwxrwx 1 root root         53 Dec 19 21:25 servertool7 -> //usr/lib/jvm/jre-      1.7.0-openjdk.x86_64/bin/servertool
+-rwxr-xr-x 1 root root      12992 Aug 24 00:12 setarch
+-rwxr-xr-x 1 root root      36200 Aug  5  2015 setfacl
+-rwxr-xr-x 1 root root      14136 Aug 20  2015 setfattr
+-rwxr-xr-x 1 root root       7160 Feb 19  2011 setkeycodes
+-rwxr-xr-x 1 root root       8952 Feb 19  2011 setleds
+-rwxr-xr-x 1 root root       6864 Feb 19  2011 setmetamode
+-rwxr-xr-x 1 root root      31840 Aug 24 00:12 setpriv
+-rwxr-xr-x 1 root root       8368 Aug 24 00:12 setsid
+-rwxr-xr-x 1 root root      27576 Aug 24 00:12 setterm
+lrwxrwxrwx 1 root root         19 Dec 19 21:25 setup-nsssysinit -> setup-nsssysi      nit.sh
+-rwxr-xr-x 1 root root       1539 Oct 23  2018 setup-nsssysinit.sh
+-rwxr-xr-x 1 root root     141616 Oct 23 23:47 sftp
+lrwxrwxrwx 1 root root          6 Dec 19 21:25 sg -> newgrp
+-rwxr-xr-x 1 root root      20104 Jan 17  2011 sha1hmac
+-rwxr-xr-x 1 root root      36576 Feb 25  2016 sha1sum
+-rwxr-xr-x 1 root root      36608 Feb 25  2016 sha224sum
+-rwxr-xr-x 1 root root      20112 Jan 17  2011 sha256hmac
+-rwxr-xr-x 1 root root      36608 Feb 25  2016 sha256sum
+-rwxr-xr-x 1 root root      20112 Jan 17  2011 sha384hmac
+-rwxr-xr-x 1 root root      36608 Feb 25  2016 sha384sum
+-rwxr-xr-x 1 root root      20112 Jan 17  2011 sha512hmac
+-rwxr-xr-x 1 root root      36608 Feb 25  2016 sha512sum
+-rwxr-xr-x 1 root root       8599 Sep 10  2014 shasum
+-rwxr-xr-x 1 root root      10373 Aug  8  2018 show-changed-rco
+-rwxr-xr-x 1 root root      15040 Feb 19  2011 showconsolefont
+-rwxr-xr-x 1 root root      16575 Aug  8  2018 show-installed
+-rwxr-xr-x 1 root root      10888 Feb 19  2011 showkey
+-rwxr-xr-x 1 root root      50048 Feb 25  2016 shred
+-rwxr-xr-x 1 root root      46592 Feb 25  2016 shuf
+-rwxr-xr-x 1 root root     168088 Oct 23  2018 signtool
+-rwxr-xr-x 1 root root      89784 Oct 23  2018 signver
+-rwxr-xr-x 1 root root      28120 Sep  7  2017 size
+-rwxr-xr-x 2 root root      15192 Aug 14  2018 skill
+-rwxr-xr-x 1 root root      13104 Aug 14  2018 slabtop
+lrwxrwxrwx 1 root root          5 Dec 19 21:26 slogin -> ./ssh
+-rwxr-xr-x 2 root root      15192 Aug 14  2018 snice
+-rwxr-xr-x 1 root root      27640 Sep 10  2014 soelim
+-rwxr-xr-x 1 root root       4337 Nov  7 19:53 sotruss
+-rwxr-xr-x 1 root root      18459 Mar 20  2019 splain
+-rwxr-xr-x 1 root root      66016 Feb 25  2016 split
+-rwxr-xr-x 1 root root      23152 Nov  7 20:19 sprof
+-rwxr-xr-x 1 root root      52856 Aug 31  2017 sqlite3
+-rwxr-xr-x 1 root root     744168 Oct 23 23:47 ssh
+-rwxr-xr-x 1 root root     346208 Oct 23 23:47 ssh-add
+---x--s--x 1 root nobody   366704 Oct 23 23:47 ssh-agent
+-rwxr-xr-x 1 root root      10469 Oct 23 23:47 ssh-copy-id
+-rwxr-xr-x 1 root root     407688 Oct 23 23:47 ssh-keygen
+-rwxr-xr-x 1 root root     428152 Oct 23 23:47 ssh-keyscan
+-rwxr-xr-x 1 root root     110072 Oct 23  2018 ssltap
+-rwxr-xr-x 1 root root   15993968 Dec 10 19:17 ssm-cli
+-rwxr-xr-x 1 root root   19369552 Dec 10 19:17 ssm-document-worker
+-rwxr-xr-x 1 root root    6880912 Dec 10 19:17 ssm-session-logger
+-rwxr-xr-x 1 root root   18410800 Dec 10 19:17 ssm-session-worker
+-rwxr-xr-x 1 root root      69920 Feb 25  2016 stat
+-rwxr-xr-x 1 root root      61888 Feb 25  2016 stdbuf
+-rwxr-xr-x 1 root root      28184 Sep  7  2017 strings
+-rwxr-xr-x 1 root root     219880 Sep  7  2017 strip
+---s--x--x 1 root root     123856 Oct 12 00:16 sudo
+lrwxrwxrwx 1 root root          4 Dec 19 21:26 sudoedit -> sudo
+---x--x--x 1 root root      63864 Oct 12 00:16 sudoreplay
+-rwxr-xr-x 1 root root      34184 Feb 25  2016 sum
+-rwxr-xr-x 1 root root      20544 Feb 18  2013 systool
+-rwxr-xr-x 1 root root      11248 Aug 17  2016 tabs
+-rwxr-xr-x 1 root root      32320 Feb 25  2016 tac
+-rwxr-xr-x 1 root root      61408 Feb 25  2016 tail
+-rwxr-xr-x 1 root root      20088 Aug 24 00:12 tailf
+lrwxrwxrwx 1 root root         27 Dec 19 21:26 taskadmin -> /etc/alternatives/ta      skadmin
+-rwxr-xr-x 1 root root       3769 Nov  7  2017 taskadmin-2.7
+-rwxr-xr-x 1 root root     107224 Sep 10  2014 tbl
+-rwxr-xr-x 1 root root      28128 Feb 25  2016 tee
+-rwxr-xr-x 1 root root      33152 Feb 25  2016 test
+lrwxrwxrwx 1 root root         24 Dec 19 21:25 testrb -> /etc/alternatives/testr      b
+-rwxr-xr-x 1 root root         77 Jul 15  2019 testrb2.0
+-rwxr-xr-x 1 root root      27568 Sep 10  2014 tfmtodit
+-rwxr-xr-x 1 root root      49936 Aug 17  2016 tic
+-rwxr-xr-x 1 root root      13112 Mar 27  2015 time
+-rwxr-xr-x 1 root root      51144 Feb 25  2016 timeout
+-rwxr-xr-x 1 root root       7920 Aug 14  2018 tload
+lrwxrwxrwx 1 root root         23 Dec 19 21:26 tmpwatch -> ../../usr/sbin/tmpwat      ch
+lrwxrwxrwx 1 root root         27 Dec 19 21:25 tnameserv -> /etc/alternatives/tn      ameserv
+lrwxrwxrwx 1 root root         52 Dec 19 21:25 tnameserv7 -> //usr/lib/jvm/jre-1      .7.0-openjdk.x86_64/bin/tnameserv
+-rwxr-xr-x 1 root root      11504 Aug 17  2016 toe
+-rwxr-xr-x 1 root root      58400 Aug 14  2018 top
+-rwxr-xr-x 1 root root      11656 Aug 17  2016 tput
+-rwxr-xr-x 1 root root      41376 Feb 25  2016 tr
+-rwxr-xr-x 1 root root     492184 Sep 10  2014 troff
+-rwxr-xr-x 1 root root      52864 Feb 25  2016 truncate
+-rwxr-xr-x 1 root root      17784 Aug 17  2016 tset
+-rwxr-xr-x 1 root root      34304 Feb 25  2016 tsort
+-rwxr-xr-x 1 root root      99072 Jan 15  2011 ttmkfdir
+-rwxr-xr-x 1 root root      25184 Feb 25  2016 tty
+-rwxr-xr-x 1 root root     102384 Nov 16 01:55 turbostat
+-rwxr-xr-x 1 root root       7335 Nov  7 19:51 tzselect
+-rwxr-xr-x 1 root root      18208 Jan  6  2012 ucs2any
+-rwxr-xr-x 1 root root      16592 Aug 24 00:12 ul
+-rwxr-xr-x 1 root root      32320 Feb 25  2016 unexpand
+-rwxr-xr-x 1 root root      40832 Feb 25  2016 uniq
+lrwxrwxrwx 1 root root         27 Dec 19 21:25 unpack200 -> /etc/alternatives/un      pack200
+lrwxrwxrwx 1 root root         52 Dec 19 21:25 unpack2007 -> //usr/lib/jvm/jre-1      .7.0-openjdk.x86_64/bin/unpack200
+-rwxr-xr-x 1 root root      14128 Aug 24 00:12 unshare
+lrwxrwxrwx 1 root root          2 Dec 19 21:25 unxz -> xz
+-rwxr-xr-x 2 root root     179496 Aug 17  2016 unzip
+-rwxr-xr-x 1 root root      85192 Aug 17  2016 unzipsfx
+-rwxr-xr-x 1 root root       8743 Dec  5 23:47 update-ca-trust
+-rwxr-xr-x 1 root root      45920 Aug 18  2016 update-mime-database
+-rwxr-xr-x 1 root root       5008 Aug 14  2018 uptime
+lrwxrwxrwx 1 root root         28 Dec 19 21:26 urlgrabber -> /etc/alternatives/u      rlgrabber
+-rwxr-xr-x 1 root root      12468 Mar 20  2017 urlgrabber-2.7
+-rwxr-xr-x 1 root root      28064 Feb 25  2016 users
+-rwxr-xr-x 1 root root      13168 Aug 24 00:12 utmpdump
+-rwxr-xr-x 1 root root       8224 Aug 24 00:12 uuidgen
+-rwxr-xr-x 1 root root     113440 Feb 25  2016 vdir
+-rwxr-xr-x 1 root root      11049 Aug  8  2018 verifytree
+-rwxr-xr-x 1 root root    2498504 Jun 13  2019 vim
+lrwxrwxrwx 1 root root          3 Dec 19 21:26 vimdiff -> vim
+-rwxr-xr-x 1 root root       2099 Jun 13  2019 vimtutor
+lrwxrwxrwx 1 root root         28 Dec 19 21:26 virtualenv -> /etc/alternatives/v      irtualenv
+-rwxr-xr-x 1 root root        402 Sep  8  2017 virtualenv-2.7
+-rwxr-xr-x 1 root root      23352 Aug 14  2018 vmstat
+-rwxr-xr-x 1 root root      12616 Aug 14  2018 w
+-r-xr-sr-x 1 root tty       11176 Feb 18  2016 wall
+-rwxr-xr-x 1 root root      12688 Aug 14  2018 watch
+-rwxr-xr-x 1 root root      11048 Aug 24  2018 watchgnupg
+-rwxr-xr-x 1 root root      36576 Feb 25  2016 wc
+-rwxr-xr-x 1 root root      38048 Aug 24 00:12 wdctl
+-rwxr-xr-x 1 root root     453736 Apr 11  2019 wget
+-rwxr-xr-x 1 root root      43872 Aug 28  2014 whatis
+-rwxr-xr-x 1 root root      19936 Aug 24 00:12 whereis
+-rwxr-xr-x 1 root root      20768 Jan  5  2012 which
+-rwxr-xr-x 1 root root      24424 Mar  4  2015 whiptail
+-rwxr-xr-x 1 root root      49152 Feb 25  2016 who
+-rwxr-xr-x 1 root root      25536 Feb 25  2016 whoami
+-rwxr-sr-x 1 root tty       18456 Aug 24 00:12 write
+lrwxrwxrwx 1 root root          7 Dec 19 21:25 x86_64 -> setarch
+-rwxr-xr-x 1 root root      28000 Nov 16 01:55 x86_energy_perf_policy
+-rwxr-xr-x 1 root root      44024 Jan 17  2011 xargs
+-rwxr-xr-x 1 root root      15256 Aug 23  2018 xmlcatalog
+-rwxr-xr-x 1 root root      60416 Aug 23  2018 xmllint
+-rwxr-xr-x 1 root root      22392 Dec  7  2016 xmlwf
+-rwxr-xr-x 1 root root      23624 Jun 28  2019 xsltproc
+-rwxr-xr-x 1 root root      15544 Jun 13  2019 xxd
+-rwxr-xr-x 1 root root      73416 Nov  6 23:50 xz
+lrwxrwxrwx 1 root root          2 Dec 19 21:25 xzcat -> xz
+lrwxrwxrwx 1 root root          6 Dec 19 21:25 xzcmp -> xzdiff
+-rwxr-xr-x 1 root root       9896 Nov  6 23:50 xzdec
+-rwxr-xr-x 1 root root       6632 Nov  6 23:50 xzdiff
+lrwxrwxrwx 1 root root          6 Dec 19 21:25 xzegrep -> xzgrep
+lrwxrwxrwx 1 root root          6 Dec 19 21:25 xzfgrep -> xzgrep
+-rwxr-xr-x 1 root root       5628 Nov  6 23:50 xzgrep
+-rwxr-xr-x 1 root root       1802 Nov  6 23:50 xzless
+-rwxr-xr-x 1 root root       2161 Nov  6 23:50 xzmore
+-rwxr-xr-x 1 root root      25440 Feb 25  2016 yes
+-rwxr-xr-x 1 root root        804 Aug 10  2017 yum
+-rwxr-xr-x 1 root root      10192 Aug  8  2018 yum-builddep
+-rwxr-xr-x 1 root root       9047 Aug  8  2018 yum-config-manager
+-rwxr-xr-x 1 root root       8541 Aug  8  2018 yum-debug-dump
+-rwxr-xr-x 1 root root       7906 Aug  8  2018 yum-debug-restore
+-rwxr-xr-x 1 root root      11118 Aug  8  2018 yumdownloader
+-rwxr-xr-x 1 root root      11034 Aug  8  2018 yum-groups-manager
+lrwxrwxrwx 1 root root         14 Dec 19 21:25 zcat -> ../../bin/zcat
+-rwxr-xr-x 1 root root       1760 Aug 17  2017 zcmp
+-rwxr-xr-x 1 root root       5768 Aug 17  2017 zdiff
+-rwxr-xr-x 1 root root        123 Aug 17  2017 zegrep
+-rwxr-xr-x 1 root root        123 Aug 17  2017 zfgrep
+-rwxr-xr-x 1 root root       2144 Aug 17  2017 zforce
+-rwxr-xr-x 1 root root       5916 Aug 17  2017 zgrep
+-rwxr-xr-x 1 root root     212496 Jan 15  2011 zip
+-rwxr-xr-x 1 root root     107104 Jan 15  2011 zipcloak
+-rwxr-xr-x 1 root root       2953 Oct 10  2008 zipgrep
+-rwxr-xr-x 2 root root     179496 Aug 17  2016 zipinfo
+-rwxr-xr-x 1 root root      98584 Jan 15  2011 zipnote
+-rwxr-xr-x 1 root root     102680 Jan 15  2011 zipsplit
+-rwxr-xr-x 1 root root       2041 Aug 17  2017 zless
+-rwxr-xr-x 1 root root       2859 Aug 17  2017 zmore
+-rwxr-xr-x 1 root root       5343 Aug 17  2017 znew
+lrwxrwxrwx 1 root root          6 Dec 19 21:25 zsoelim -> soelim
+[root@ip-172-31-46-220 bin]#
+[root@ip-172-31-46-220 bin]#
+[root@ip-172-31-46-220 bin]#
+[root@ip-172-31-46-220 bin]# ln -s ^C
+[root@ip-172-31-46-220 bin]#
+[root@ip-172-31-46-220 bin]#
+[root@ip-172-31-46-220 bin]#
+[root@ip-172-31-46-220 bin]#
+[root@ip-172-31-46-220 bin]# cd /root/.ssh/
+[root@ip-172-31-46-220 .ssh]# ll
+total 4
+-rw------- 1 root root 547 Jan 28 08:24 authorized_keys
+[root@ip-172-31-46-220 .ssh]# ssh-keygen
+Generating public/private rsa key pair.
+Enter file in which to save the key (/root/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /root/.ssh/id_rsa.
+Your public key has been saved in /root/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:qdrN/6qHgJOD9/3scOyyzC2Sajkrf9kln3eoaQygd4k root@ip-172-31-46-220
+The key's randomart image is:
++---[RSA 2048]----+
+|                 |
+|                 |
+|                 |
+|      .  .       |
+|   . + oS.       |
+|  . B E.=..      |
+|   . *.B.Bo. .   |
+|  . +o*=***.o .  |
+|   +==..B@@=..   |
++----[SHA256]-----+
+[root@ip-172-31-46-220 .ssh]# ll
+total 12
+-rw------- 1 root root  547 Jan 28 08:24 authorized_keys
+-rw------- 1 root root 1675 Jan 28 08:51 id_rsa
+-rw-r--r-- 1 root root  403 Jan 28 08:51 id_rsa.pub
+[root@ip-172-31-46-220 .ssh]#
+[root@ip-172-31-46-220 .ssh]#
+[root@ip-172-31-46-220 .ssh]#
+[root@ip-172-31-46-220 .ssh]# pwd
+/root/.ssh
+[root@ip-172-31-46-220 .ssh]#
+[root@ip-172-31-46-220 .ssh]#
+[root@ip-172-31-46-220 .ssh]#
+[root@ip-172-31-46-220 .ssh]#
+[root@ip-172-31-46-220 .ssh]# cat id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCugsvR8OYJUR1XcBiKt11mCW8D9GgVBYrHo3/HWorW      ZP+yDYJ65HxFvWXj5ywk5iaUmeQhgeGhrig5CwnlcsLOZEq+nmj7b50u81uBhzLAyrtgLBaBw884MHdu      wcj8UU4u7p/+U9YSYcLGKz4lVK6M4DCA5E2aHFceHCOSZhFc7V6/1JSeyrpUI/JeK8mvUFg08M2T5y13      TJMHgY+9bJsI5827ZHLJovJZBPUN4KDch8Pe/ZfeYltCcchv0fhXZVYAbSGwnesNzIgi1K1BYpZQ+9Ci      rPFRzWbZfo/FPtsm4rbe9lt5mychwOtkO+3VmPl30PearhRxLSB/8UhfsRC9 root@ip-172-31-46-2      20
+[root@ip-172-31-46-220 .ssh]#
+[root@ip-172-31-46-220 .ssh]#
+[root@ip-172-31-46-220 .ssh]# pwd
+/root/.ssh
+[root@ip-172-31-46-220 .ssh]# ll
+total 12
+-rw------- 1 root root  547 Jan 28 08:24 authorized_keys
+-rw------- 1 root root 1675 Jan 28 08:51 id_rsa
+-rw-r--r-- 1 root root  403 Jan 28 08:51 id_rsa.pub
+[root@ip-172-31-46-220 .ssh]# cat id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCugsvR8OYJUR1XcBiKt11mCW8D9GgVBYrHo3/HWorW      ZP+yDYJ65HxFvWXj5ywk5iaUmeQhgeGhrig5CwnlcsLOZEq+nmj7b50u81uBhzLAyrtgLBaBw884MHdu      wcj8UU4u7p/+U9YSYcLGKz4lVK6M4DCA5E2aHFceHCOSZhFc7V6/1JSeyrpUI/JeK8mvUFg08M2T5y13      TJMHgY+9bJsI5827ZHLJovJZBPUN4KDch8Pe/ZfeYltCcchv0fhXZVYAbSGwnesNzIgi1K1BYpZQ+9Ci      rPFRzWbZfo/FPtsm4rbe9lt5mychwOtkO+3VmPl30PearhRxLSB/8UhfsRC9 root@ip-172-31-46-2      20
+[root@ip-172-31-46-220 .ssh]#
+[root@ip-172-31-46-220 .ssh]#
+[root@ip-172-31-46-220 .ssh]#
+[root@ip-172-31-46-220 .ssh]# ssh 172.31.32.38
+The authenticity of host '172.31.32.38 (172.31.32.38)' can't be established.
+ECDSA key fingerprint is SHA256:ExWyABOUPVLPaLRFwOdeQZSuwZHaziv4xOgI452rYcY.
+ECDSA key fingerprint is MD5:e2:37:84:82:25:f0:36:9c:d3:db:f7:29:fd:75:7b:76.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '172.31.32.38' (ECDSA) to the list of known hosts.
+Permission denied (publickey).
+[root@ip-172-31-46-220 .ssh]# ssh 172.31.32.38
+Last login: Tue Jan 28 08:26:00 2020
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-ami/2018.03-release-notes/
+No packages needed for security; 5 packages available
+Run "sudo yum update" to apply all updates.
+[root@ip-172-31-32-38 ~]# exit
+logout
+Connection to 172.31.32.38 closed.
+[root@ip-172-31-46-220 .ssh]#
+[root@ip-172-31-46-220 .ssh]#
+[root@ip-172-31-46-220 .ssh]# ansible -m ping all
+[WARNING]: No inventory was parsed, only implicit localhost is available
+
+[WARNING]: provided hosts list is empty, only localhost is available. Note that
+the implicit localhost does not match 'all'
+
+[root@ip-172-31-46-220 .ssh]# mkdir -p /etc/ansible
+[root@ip-172-31-46-220 .ssh]# cd /etc/ansible/
+[root@ip-172-31-46-220 ansible]# vi hosts
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]# ansible -m ping all
+[WARNING]: Platform linux on host 172.31.32.38 is using the discovered Python
+interpreter at /usr/bin/python, but future installation of another Python
+interpreter could change this. See https://docs.ansible.com/ansible/2.9/referen
+ce_appendices/interpreter_discovery.html for more information.
+
+172.31.32.38 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]# pwd
+/etc/ansible
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]# mkdir playbook
+[root@ip-172-31-46-220 ansible]# vi apache.yml
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]# ansible-playbook apache.yml --syntax-check
+
+playbook: apache.yml
+[root@ip-172-31-46-220 ansible]# ansible-playbook apache.yml
+
+PLAY [Servers] ***********************************************************************
+
+TASK [Gathering Facts] ***************************************************************
+[WARNING]: Platform linux on host 172.31.32.38 is using the discovered Python
+interpreter at /usr/bin/python, but future installation of another Python interpreter
+could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html
+for more information.
+
+ok: [172.31.32.38]
+
+TASK [ensure apache is at the latest version] ****************************************
+changed: [172.31.32.38]
+
+TASK [ensure apache is running (and enable it at boot)] ******************************
+changed: [172.31.32.38]
+
+RUNNING HANDLER [restart apache] *****************************************************
+changed: [172.31.32.38]
+
+PLAY RECAP ***************************************************************************
+172.31.32.38               : ok=4    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]# vi apache.yml
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]# which ansible-playbook
+/usr/local/bin/ansible-playbook
+[root@ip-172-31-46-220 ansible]# pwd
+/etc/ansible
+[root@ip-172-31-46-220 ansible]# cd playbook/
+[root@ip-172-31-46-220 playbook]# ll
+total 0
+[root@ip-172-31-46-220 playbook]# pwd
+/etc/ansible/playbook
+[root@ip-172-31-46-220 playbook]# cd ..
+[root@ip-172-31-46-220 ansible]# ll
+total 12
+-rw-r--r-- 1 root root  455 Jan 28 09:34 apache.yml
+-rw-r--r-- 1 root root   23 Jan 28 09:11 hosts
+drwxr-xr-x 2 root root 4096 Jan 28 09:24 playbook
+[root@ip-172-31-46-220 ansible]# cd playbook/
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# yum install -y git; git init
+Loaded plugins: priorities, update-motd, upgrade-helper
+amzn-main                                                      | 2.1 kB  00:00:00
+amzn-updates                                                   | 2.5 kB  00:00:00
+Resolving Dependencies
+--> Running transaction check
+---> Package git.x86_64 0:2.14.6-1.61.amzn1 will be installed
+--> Processing Dependency: perl-Git = 2.14.6-1.61.amzn1 for package: git-2.14.6-1.61.amzn1.x86_64
+--> Processing Dependency: perl(Term::ReadKey) for package: git-2.14.6-1.61.amzn1.x86_64
+--> Processing Dependency: perl(Git::I18N) for package: git-2.14.6-1.61.amzn1.x86_64
+--> Processing Dependency: perl(Git) for package: git-2.14.6-1.61.amzn1.x86_64
+--> Processing Dependency: perl(Error) for package: git-2.14.6-1.61.amzn1.x86_64
+--> Running transaction check
+---> Package perl-Error.noarch 1:0.17020-2.9.amzn1 will be installed
+---> Package perl-Git.noarch 0:2.14.6-1.61.amzn1 will be installed
+---> Package perl-TermReadKey.x86_64 0:2.30-20.9.amzn1 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+======================================================================================
+ Package               Arch        Version                    Repository         Size
+======================================================================================
+Installing:
+ git                   x86_64      2.14.6-1.61.amzn1          amzn-updates       12 M
+Installing for dependencies:
+ perl-Error            noarch      1:0.17020-2.9.amzn1        amzn-main          33 k
+ perl-Git              noarch      2.14.6-1.61.amzn1          amzn-updates       69 k
+ perl-TermReadKey      x86_64      2.30-20.9.amzn1            amzn-main          33 k
+
+Transaction Summary
+======================================================================================
+Install  1 Package (+3 Dependent packages)
+
+Total download size: 12 M
+Installed size: 29 M
+Downloading packages:
+(1/4): perl-TermReadKey-2.30-20.9.amzn1.x86_64.rpm             |  33 kB  00:00:00
+(2/4): perl-Error-0.17020-2.9.amzn1.noarch.rpm                 |  33 kB  00:00:00
+(3/4): perl-Git-2.14.6-1.61.amzn1.noarch.rpm                   |  69 kB  00:00:00
+(4/4): git-2.14.6-1.61.amzn1.x86_64.rpm                        |  12 MB  00:00:01
+--------------------------------------------------------------------------------------
+Total                                                    7.5 MB/s |  12 MB  00:01
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : 1:perl-Error-0.17020-2.9.amzn1.noarch                              1/4
+  Installing : perl-TermReadKey-2.30-20.9.amzn1.x86_64                            2/4
+  Installing : git-2.14.6-1.61.amzn1.x86_64                                       3/4
+  Installing : perl-Git-2.14.6-1.61.amzn1.noarch                                  4/4
+  Verifying  : 1:perl-Error-0.17020-2.9.amzn1.noarch                              1/4
+  Verifying  : git-2.14.6-1.61.amzn1.x86_64                                       2/4
+  Verifying  : perl-TermReadKey-2.30-20.9.amzn1.x86_64                            3/4
+  Verifying  : perl-Git-2.14.6-1.61.amzn1.noarch                                  4/4
+
+Installed:
+  git.x86_64 0:2.14.6-1.61.amzn1
+
+Dependency Installed:
+  perl-Error.noarch 1:0.17020-2.9.amzn1        perl-Git.noarch 0:2.14.6-1.61.amzn1
+  perl-TermReadKey.x86_64 0:2.30-20.9.amzn1
+
+Complete!
+Initialized empty Git repository in /etc/ansible/playbook/.git/
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# mv ../apache.yml .
+[root@ip-172-31-46-220 playbook]# git remote add origin https://github.com/raghuopsdev/ansible.git
+[root@ip-172-31-46-220 playbook]# git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        apache.yml
+
+nothing added to commit but untracked files present (use "git add" to track)
+[root@ip-172-31-46-220 playbook]# git add .
+[root@ip-172-31-46-220 playbook]# git commit . -m "first exercise"
+[master (root-commit) 0041627] first exercise
+ Committer: root <root@ip-172-31-46-220.ap-south-1.compute.internal>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 23 insertions(+)
+ create mode 100644 apache.yml
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# git push -u origin master
+Username for 'https://github.com': raghuopsdev
+Password for 'https://raghuopsdev@github.com':
+Counting objects: 3, done.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 442 bytes | 442.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/raghuopsdev/ansible.git
+ * [new branch]      master -> master
+Branch master set up to track remote branch master from origin.
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# pwd
+/etc/ansible/playbook
+[root@ip-172-31-46-220 playbook]#
+Broadcast message from root@ip-172-31-46-220
+        (unknown) at 11:23 ...
+
+The system is going down for power off NOW!
