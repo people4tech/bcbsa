@@ -1,0 +1,70 @@
+Tomcat:
+
+ 
+
+---
+- hosts: dbservers
+  vars:
+    http_port: 80
+    max_clients: 200
+  remote_user: root
+  tasks:
+  - name: ensure apache is at the latest version
+    yum:
+      name: tomcat7
+      state: latest
+    notify:
+    - restart tomcat
+  - name: ensure tomcat is running (and enable it at boot)
+    service:
+      name: tomcat7
+      state: started
+      enabled: yes
+  handlers:
+    - name: restart tomcat
+      service:
+        name: tomcat
+        state: restarted
+
+
+Apache.yml
+
+
+
+[ec2-user@ip-172-31-46-216 ansible]$ cat apache.yml
+
+---
+- hosts: webservers
+  vars:
+    http_port: 80
+    max_clients: 200
+  remote_user: root
+  tasks:
+  - name: ensure apache is at the latest version
+    yum:
+      name: httpd
+      state: latest
+    notify:
+    - restart apache
+  - name: ensure apache is running (and enable it at boot)
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+  handlers:
+    - name: restart apache
+      service:
+        name: httpd
+        state: restarted
+site.yml
+
+
+[ec2-user@ip-172-31-46-216 ansible]$ cat site.yml
+
+---
+- import_playbook:  apache.yml
+- import_playbook:  tomcat.yml
+
+
+[root@ip-172-31-46-216 ansible]# ansible-playbook site.yml
+
