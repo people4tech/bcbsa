@@ -1,0 +1,34 @@
+INDEX.HTML
+=========================
+
+mkdir templates
+cd templates
+
+# vi index.html
+
+HTML Code
+
+<html>
+<head><title>Hello from Raghu</title></head>
+<body>
+<h1> Congrats </h1>
+<p> Nice Job {{ user }} </p>
+</body>
+</html>
+
+
+PLAYBOOK
+===========
+
+---
+- hosts: Servers
+  become: yes
+  vars:
+      username: Ashok
+      doc_root: /var/www/html/
+  vars_prompt:
+    - name: "user"
+      prompt: "Enter your name: "
+  tasks:
+     - name: Copy site file
+       template: src=templates/index.html dest={{doc_root}}/index.html mode=0644
