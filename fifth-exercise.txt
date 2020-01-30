@@ -1,0 +1,29 @@
+[root@ip-172-31-46-220 playbook]# cat proxy.conf
+ProxyPass /examples http://127.0.0.1:8080/examples
+ProxyPassReverse /examples http://127.0.0.1:8080/examples
+[root@ip-172-31-46-220 playbook]# cat handler.yml
+---
+- hosts: Servers
+  become: yes
+  tasks:
+     - name: install apache
+       yum: name=httpd state=latest
+
+     - name: install tomcat
+       yum: name=tomcat7 state=latest
+
+     - name: install sample apps
+       yum: name=tomcat7-webapps state=latest
+
+     - name: start tomcat
+       service: name=tomcat7 state=restarted
+
+     - name: Copy the website config file
+       copy: src=proxy.conf dest=/etc/httpd/conf.d/proxy.conf
+
+       notify:
+           - Apache Restart
+
+  handlers:
+     - name: Apache Restart
+       service: name=httpd state=restarted
