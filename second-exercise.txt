@@ -1,0 +1,9 @@
+---
+ - hosts: Servers
+   become: yes
+   tasks:
+     - shell: /usr/bin/whoami
+       register: username
+
+     - debug: msg="{{username}}"
+     - file: path=/tmp/info.txt owner={{username.stdout}} group={{username.stdout}}
