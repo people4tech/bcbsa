@@ -76,3 +76,12 @@ Yuppyyy! Now go and create some Roles out of this playbook
 </body>
 </html>
 
+
+CALL ROLE With parameters (example)
+==================================
+hosts: webservers
+sudo: yes
+gather_facts: no
+roles:
+- {role:apache, http_port:8090, max_clients:250}
+
