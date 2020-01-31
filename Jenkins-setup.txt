@@ -1,0 +1,81 @@
+JENKINS Setup
+=========================
+[root@ip-172-31-32-38 java-1.8.0-openjdk]# history
+    1  exit
+    2  cd /root/.ssh/
+    3  ll
+    4  vi authorized_keys
+    5  cd /root/.ssh/
+    6  ll
+    7  vi authorized_keys
+    8  ifconfig
+    9  vi /etc/ssh/sshd_config
+   10  service sshd restart
+   11  vi /etc/ssh/sshd_config
+   12  ifconfig
+   13  which httpd
+   14  ps -ef | grep httpd
+   15  curl ifconfig.co
+   16  exit
+   17  ifconfig
+   18  cd /tmp/
+   19  ll
+   20  touch info.txt
+   21  ll
+   22  chown ec2-user:ec2-user info.txt
+   23  ll
+   24  pwd
+   25  ls -lrth
+   26  ll
+   27  ps -ef | grep httpd
+   28  ps -ef | grep tomcat
+   29  cd /etc/httpd/conf.d
+   30  ll
+   31  cd /usr/share/tomcat7/webapps/
+   32  ll
+   33  curl ifconfig.co
+   34  yum remove httpd
+   35  cd /var/www/html/
+   36  ll
+   37  rm index.html
+   38  java -version
+   39  wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
+   40  rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
+   41  alternative --config java
+   42  java -version
+   43  yum list | grep jdk
+   44  yum install java-1.8.0-openjdk-devel.x86_64
+   45  alternatives --config java
+   46  yum install jenkins
+   47  service jenkins start
+   48  curl ifconfig.co
+   49  cat
+   50  cat /var/lib/jenkins/secrets/initialAdminPassword
+   51  alternatives --config java
+   52  cd /usr/lib/jvm
+   53  ll
+   54  cd java-1.8.0-openjdk
+   55  ls
+   56  pwd
+   57  yum install -y git
+   58  ps -ef | grep tomcat
+   59  history
+
+
+
+Tomcat Setup
+=================================
+
+[root@ip-172-31-41-106 webapps]# history
+    1  yum install -y tomcat7 tomcat7-webapps
+    2  service tomcat7 start
+    3  curl ifconfig.co
+    4  ifconfig
+    5  vi /root/.ssh/authorized_keys
+    6  vi /etc/ssh/sshd_config
+    7  service sshd restart
+    8  ifconfig
+    9  cd /usr/share/tomcat7/webapps/
+   10  ll
+   11  curl ifconfig.co
+   12  history
