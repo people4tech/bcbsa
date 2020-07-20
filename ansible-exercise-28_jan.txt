@@ -6,8 +6,9 @@
 
  ---
  # file: site.yml
- 	- include: webservers.yml
- 	- include: dbservers.yml
+ #	- include: webservers.yml (Deprecating)
+ #	- include: dbservers.yml
+   - import_playbook: webserver.yml (This is the latest module)
 
  ===============================
 
