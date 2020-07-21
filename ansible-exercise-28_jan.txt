@@ -196,7 +196,7 @@
 
        - name: copy static files
          template: src=templates/index.html dest={{doc_root}}/index.html mode=0644
-
+     handlers:
        - name: Restart apache
          service: name=httpd state=restarted
 
