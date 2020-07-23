@@ -1,0 +1,87 @@
+ROLES
+
+$ mkdir roles
+$ cd roles/
+imran@DevOps:.../roles$ ansible-galaxy init apache
+- apache was created successfully
+imran@DevOps:.../roles$ tree
+L apache
+defaults
+main.yml
+| handlers
+main.yml
+| meta
+main.yml
+README.md
+tasks
+L main.yml
+tests
+inventory
+L test.yml
+L vars
+L main.yml
+
+
+play book
+----------
+$ cat Webservers.yml
+hosts: webservers
+sudo: yes
+gather_facts: no
+roles:
+- apache
+
+
+
+TASKS
+-------------
+name: Ensure Apache installed
+yum: name=httpd state=present
+name: Creates directoy
+file: path=/var/www/html state=directory
+name: Ensure Apache is running
+service: name=httpd enabled=yes state=started
+name: Deploy configuration File
+template: src=templates/proxy.j2 dest=/etc/httpd/conf.d/proxy.conf
+notify:
+- Restart Apache
+name: Copy Site Files
+template: src=templates/index.j2 dest={{doc_root}}/index.html mode=0644
+
+
+HANDLERS
+------------------------
+$ cat roles/apache/handlers/main.yml
+name: Restart Apache
+service: name=httpd state=restarted
+$ cat roles/apache/vars/main.yml
+http_port: 80
+doc_dir: /ansible/
+doc_root: /var/www/html/ansible/
+max_clients: 5
+username: devops
+$ ls roles/apache/templates/
+proxy.j2 index.j2
+
+index.j2
+--------------------
+
+<html>
+<headxtitle>Hello from Ansible</title></head>
+<body>
+<hl>Congratulations!</hl>
+<p>Nice job {{ username }}!! You have successfully ran your smart playbook!
+Yuppyyy! Now go and create some Roles out of this playbook
+</p>
+</body>
+</html>
+
+
+CALL ROLE With parameters (example)
+==================================
+hosts: webservers
+sudo: yes
+gather_facts: no
+roles:
+- {role:apache, http_port:8090, max_clients:250}
+

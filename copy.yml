@@ -1,0 +1,9 @@
+[root@ip-172-31-46-220 playbook]# cat copy.yml
+---
+- hosts: appserver
+  become: yes
+  tasks:
+    - name: copy jar/war onto tomcat servers
+      copy:
+          src: /opt/source/webapp.war
+          dest: /usr/share/tomcat7/webapps

@@ -1,0 +1,1659 @@
+login as: ec2-user
+Authenticating with public key "imported-openssh-key"
+Last login: Tue Jan 28 08:25:22 2020 from 115.110.193.50
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-ami/2018.03-release-notes/
+No packages needed for security; 5 packages available
+Run "sudo yum update" to apply all updates.
+[ec2-user@ip-172-31-46-220 ~]$
+[ec2-user@ip-172-31-46-220 ~]$
+[ec2-user@ip-172-31-46-220 ~]$ sudo su -
+Last login: Tue Jan 28 08:25:25 UTC 2020 on pts/0
+[root@ip-172-31-46-220 ~]#
+[root@ip-172-31-46-220 ~]#
+[root@ip-172-31-46-220 ~]#
+[root@ip-172-31-46-220 ~]# ssh 172.31.32.38
+Last login: Thu Jan 30 05:16:04 2020
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-ami/2018.03-release-notes/
+No packages needed for security; 5 packages available
+Run "sudo yum update" to apply all updates.
+[root@ip-172-31-32-38 ~]# exit
+logout
+Connection to 172.31.32.38 closed.
+[root@ip-172-31-46-220 ~]#
+[root@ip-172-31-46-220 ~]#
+[root@ip-172-31-46-220 ~]#
+[root@ip-172-31-46-220 ~]# ansible -m ping all
+[WARNING]: Platform linux on host 172.31.32.38 is using the discovered Python
+interpreter at /usr/bin/python, but future installation of another Python
+interpreter could change this. See https://docs.ansible.com/ansible/2.9/referen
+ce_appendices/interpreter_discovery.html for more information.
+
+172.31.32.38 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+[root@ip-172-31-46-220 ~]#
+[root@ip-172-31-46-220 ~]#
+[root@ip-172-31-46-220 ~]#
+[root@ip-172-31-46-220 ~]# cd /etc/ansible/
+[root@ip-172-31-46-220 ansible]# ll
+total 8
+-rw-r--r-- 1 root root   23 Jan 28 09:11 hosts
+drwxr-xr-x 3 root root 4096 Jan 28 09:51 playbook
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]# pwd
+/etc/ansible
+[root@ip-172-31-46-220 ansible]# ll
+total 8
+-rw-r--r-- 1 root root   23 Jan 28 09:11 hosts
+drwxr-xr-x 3 root root 4096 Jan 28 09:51 playbook
+[root@ip-172-31-46-220 ansible]# cd playbook/
+[root@ip-172-31-46-220 playbook]# ll
+total 4
+-rw-r--r-- 1 root root 455 Jan 28 09:34 apache.yml
+[root@ip-172-31-46-220 playbook]# vi user.yml
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# ansible-playbook user.yml --syntax-check
+
+playbook: user.yml
+[root@ip-172-31-46-220 playbook]# ansible-playbook user.yml
+
+PLAY [Servers] *****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+[WARNING]: Platform linux on host 172.31.32.38 is using the discovered Python
+interpreter at /usr/bin/python, but future installation of another Python
+interpreter could change this. See https://docs.ansible.com/ansible/2.9/referen
+ce_appendices/interpreter_discovery.html for more information.
+
+ok: [172.31.32.38]
+
+TASK [shell] *******************************************************************
+changed: [172.31.32.38]
+
+TASK [debug] *******************************************************************
+ok: [172.31.32.38] => {
+    "msg": {
+        "changed": true,
+        "cmd": "/usr/bin/whoami",
+        "delta": "0:00:00.004515",
+        "end": "2020-01-30 05:31:07.215787",
+        "failed": false,
+        "rc": 0,
+        "start": "2020-01-30 05:31:07.211272",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": "root",
+        "stdout_lines": [
+            "root"
+        ]
+    }
+}
+
+TASK [file] ********************************************************************
+[WARNING]: The value {'stderr_lines': [], 'changed': True, 'end': '2020-01-30
+05:31:07.215787', 'stdout': 'root', 'cmd': '/usr/bin/whoami', 'rc': 0,
+'failed': False, 'stderr': '', 'delta': '0:00:00.004515', 'stdout_lines':
+['root'], 'start': '2020-01-30 05:31:07.211272'} (type dict) in a string field
+was converted to u"{'stderr_lines': [], 'changed': True, 'end': '2020-01-30
+05:31:07.215787', 'stdout': 'root', 'cmd': '/usr/bin/whoami', 'rc': 0,
+'failed': False, 'stderr': '', 'delta': '0:00:00.004515', 'stdout_lines':
+['root'], 'start': '2020-01-30 05:31:07.211272'}" (type string). If this does
+not look like what you expect, quote the entire value to ensure it does not
+change.
+
+fatal: [172.31.32.38]: FAILED! => {"changed": false, "gid": 500, "group": "ec2-u                                          ser", "mode": "0644", "msg": "chown failed: failed to look up user {'stderr_line                                          s': [], 'changed': True, 'end': '2020-01-30 05:31:07.215787', 'stdout': 'root',                                           'cmd': '/usr/bin/whoami', 'rc': 0, 'failed': False, 'stderr': '', 'delta': '0:00                                          :00.004515', 'stdout_lines': ['root'], 'start': '2020-01-30 05:31:07.211272'}",                                           "owner": "ec2-user", "path": "/tmp/info.txt", "size": 0, "state": "file", "uid":                                           500}
+
+PLAY RECAP *********************************************************************
+172.31.32.38               : ok=3    changed=1    unreachable=0    failed=1    s                                          kipped=0    rescued=0    ignored=0
+
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# ansible-doc debug
+> DEBUG    (/usr/local/lib/python2.7/site-packages/ansible/modules/utilities/log
+
+        This module prints statements during execution and can be
+        useful for debugging variables or expressions without
+        necessarily halting the playbook. Useful for debugging
+        together with the 'when:' directive. This module is also
+        supported for Windows targets.
+
+  * This module is maintained by The Ansible Core Team
+  * note: This module has a corresponding action plugin.
+
+OPTIONS (= is mandatory):
+
+- msg
+        The customized message that is printed. If omitted, prints a
+        generic message.
+        [Default: Hello world!]
+        type: str
+
+- var
+        A variable name to debug.
+        Mutually exclusive with the `msg' option.
+        Be aware that this option already runs in Jinja2 context and
+        has an implicit `{{ }}' wrapping, so you should not be using
+        Jinja2 delimiters unless you are looking for double
+        interpolation.
+        [Default: (null)]
+        type: str
+
+- verbosity
+        A number that controls when the debug is run, if you set to 3
+        it will only run debug when -vvv or above
+        [Default: 0]
+        type: int
+        version_added: 2.1
+
+
+NOTES:
+      * This module is also supported for Windows targets.
+
+
+SEE ALSO:
+      * Module assert
+           The official documentation on the assert module.
+           https://docs.ansible.com/ansible/2.9/modules/assert_m
+        odule.html
+      * Module fail
+           The official documentation on the fail module.
+           https://docs.ansible.com/ansible/2.9/modules/fail_mod
+        ule.html
+
+
+AUTHOR: Dag Wieers (@dagwieers), Michael DeHaan
+        METADATA:
+          status:
+          - stableinterface
+          supported_by: core
+
+
+EXAMPLES:
+
+# Example that prints the loopback address and gateway for each host
+- debug:
+    msg: System {{ inventory_hostname }} has uuid {{ ansible_product_uuid }}
+
+- debug:
+- debug:
+    msg: System {{ inventory_hostname }} has gateway {{ ansible_default_ipv4.gat
+  when: ansible_default_ipv4.gateway is defined
+
+# Example that prints return information from the previous task
+- shell: /usr/bin/uptime
+  register: result
+
+- debug:
+    var: result
+    verbosity: 2
+
+- name: Display all variables/facts known for a host
+  debug:
+    var: hostvars[inventory_hostname]
+    verbosity: 4
+
+# Example that prints two lines of messages, but only if there is an environment
+- debug:
+    msg:
+    - "Provisioning based on YOUR_KEY which is: {{ lookup('env', 'YOUR_KEY') }}"
+    - "These servers were built using the password of '{{ password_used }}'. Ple
+
+
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# ansible-doc file
+> FILE    (/usr/local/lib/python2.7/site-packages/ansible/modules/files/file.py)
+
+        Set attributes of files, symlinks or directories.
+        Alternatively, remove files, symlinks or directories. Many
+        other modules support the same options as the `file' module -
+        including [copy], [template], and [assemble]. For Windows
+        targets, use the [win_file] module instead.
+
+  * This module is maintained by The Ansible Core Team
+OPTIONS (= is mandatory):
+
+- access_time
+        This parameter indicates the time the file's access time
+        should be set to.
+        Should be `preserve' when no modification is required,
+        `YYYYMMDDHHMM.SS' when using default time format, or `now'.
+        Default is `None' meaning that `preserve' is the default for
+        `state=[file,directory,link,hard]' and `now' is default for
+        `state=touch'.
+        [Default: (null)]
+        type: str
+        version_added: 2.7
+
+- access_time_format
+        When used with `access_time', indicates the time format that
+        must be used.
+        Based on default Python format (see time.strftime doc).
+        [Default: %Y%m%d%H%M.%S]
+        type: str
+        version_added: 2.7
+
+- attributes
+        The attributes the resulting file or directory should have.
+        To get supported flags look at the man page for `chattr' on
+        the target system.
+        This string should contain the attributes in the same order as
+        the one displayed by `lsattr'.
+        The `=' operator is assumed as default, otherwise `+' or `-'
+        operators need to be included in the string.
+        (Aliases: attr)[Default: (null)]
+        type: str
+        version_added: 2.3
+
+- follow
+        This flag indicates that filesystem links, if they exist,
+        should be followed.
+        Previous to Ansible 2.5, this was `no' by default.
+        [Default: True]
+        type: bool
+        version_added: 1.8
+
+- force
+        Force the creation of the symlinks in two cases: the source
+        file does not exist (but will appear later); the destination
+        exists and is a file (so, we need to unlink the `path' file
+        and create symlink to the `src' file in place of it).
+        [Default: False]
+        type: bool
+
+- group
+        Name of the group that should own the file/directory, as would
+        be fed to `chown'.
+        [Default: (null)]
+        type: str
+
+- mode
+        The permissions the resulting file or directory should have.
+        For those used to `/usr/bin/chmod' remember that modes are
+        actually octal numbers. You must either add a leading zero so
+        that Ansible's YAML parser knows it is an octal number (like
+        `0644' or `01777') or quote it (like `'644'' or `'1777'') so
+        Ansible receives a string and can do its own conversion from
+        string into number.
+        Giving Ansible a number without following one of these rules
+        will end up with a decimal number which will have unexpected
+        results.
+        As of Ansible 1.8, the mode may be specified as a symbolic
+        mode (for example, `u+rwx' or `u=rw,g=r,o=r').
+        As of Ansible 2.6, the mode may also be the special string
+        `preserve'.
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# ll
+total 8
+-rw-r--r-- 1 root root 455 Jan 28 09:34 apache.yml
+-rw-r--r-- 1 root root 188 Jan 30 05:30 user.yml
+[root@ip-172-31-46-220 playbook]# vi user.yml
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# ansible-playbook user.yml
+
+PLAY [Servers] *****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+[WARNING]: Platform linux on host 172.31.32.38 is using the discovered Python
+interpreter at /usr/bin/python, but future installation of another Python
+interpreter could change this. See https://docs.ansible.com/ansible/2.9/referen
+ce_appendices/interpreter_discovery.html for more information.
+
+ok: [172.31.32.38]
+
+TASK [shell] *******************************************************************
+changed: [172.31.32.38]
+
+TASK [debug] *******************************************************************
+ok: [172.31.32.38] => {
+    "msg": {
+        "changed": true,
+        "cmd": "/usr/bin/whoami",
+        "delta": "0:00:00.003404",
+        "end": "2020-01-30 05:39:21.129396",
+        "failed": false,
+        "rc": 0,
+        "start": "2020-01-30 05:39:21.125992",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": "root",
+        "stdout_lines": [
+            "root"
+        ]
+    }
+}
+
+TASK [file] ********************************************************************
+[WARNING]: The value {'stderr_lines': [], 'changed': True, 'end': '2020-01-30
+05:39:21.129396', 'stdout': 'root', 'cmd': '/usr/bin/whoami', 'rc': 0,
+'failed': False, 'stderr': '', 'delta': '0:00:00.003404', 'stdout_lines':
+['root'], 'start': '2020-01-30 05:39:21.125992'} (type dict) in a string field
+was converted to u"{'stderr_lines': [], 'changed': True, 'end': '2020-01-30
+05:39:21.129396', 'stdout': 'root', 'cmd': '/usr/bin/whoami', 'rc': 0,
+'failed': False, 'stderr': '', 'delta': '0:00:00.003404', 'stdout_lines':
+['root'], 'start': '2020-01-30 05:39:21.125992'}" (type string). If this does
+not look like what you expect, quote the entire value to ensure it does not
+change.
+
+fatal: [172.31.32.38]: FAILED! => {"changed": false, "gid": 500, "group": "ec2-u                                          ser", "mode": "0644", "msg": "chown failed: failed to look up user {'stderr_line                                          s': [], 'changed': True, 'end': '2020-01-30 05:39:21.129396', 'stdout': 'root',                                           'cmd': '/usr/bin/whoami', 'rc': 0, 'failed': False, 'stderr': '', 'delta': '0:00                                          :00.003404', 'stdout_lines': ['root'], 'start': '2020-01-30 05:39:21.125992'}",                                           "owner": "ec2-user", "path": "/tmp/info.txt", "size": 0, "state": "file", "uid":                                           500}
+
+PLAY RECAP *********************************************************************
+172.31.32.38               : ok=3    changed=1    unreachable=0    failed=1    s                                          kipped=0    rescued=0    ignored=0
+
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# vi user.yml
+[root@ip-172-31-46-220 playbook]# ansible-playbook user.yml
+
+PLAY [Servers] *****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+[WARNING]: Platform linux on host 172.31.32.38 is using the discovered Python
+interpreter at /usr/bin/python, but future installation of another Python
+interpreter could change this. See https://docs.ansible.com/ansible/2.9/referen
+ce_appendices/interpreter_discovery.html for more information.
+
+ok: [172.31.32.38]
+
+TASK [shell] *******************************************************************
+changed: [172.31.32.38]
+
+TASK [debug] *******************************************************************
+ok: [172.31.32.38] => {
+    "msg": {
+        "changed": true,
+        "cmd": "/usr/bin/whoami",
+        "delta": "0:00:00.003431",
+        "end": "2020-01-30 05:39:57.920166",
+        "failed": false,
+        "rc": 0,
+        "start": "2020-01-30 05:39:57.916735",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": "root",
+        "stdout_lines": [
+            "root"
+        ]
+    }
+}
+
+TASK [file] ********************************************************************
+changed: [172.31.32.38]
+
+PLAY RECAP *********************************************************************
+172.31.32.38               : ok=4    changed=2    unreachable=0    failed=0    s                                          kipped=0    rescued=0    ignored=0
+
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# ll
+total 8
+-rw-r--r-- 1 root root 455 Jan 28 09:34 apache.yml
+-rw-r--r-- 1 root root 221 Jan 30 05:39 user.yml
+[root@ip-172-31-46-220 playbook]# vi user.yml
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# vi var.yml
+[root@ip-172-31-46-220 playbook]# ansible-playbook var.yml --syntax-check
+
+playbook: var.yml
+[root@ip-172-31-46-220 playbook]# ansible-playbook var.yml
+
+PLAY [all] ***************************************************************************************
+
+TASK [Gathering Facts] ***************************************************************************
+[WARNING]: Platform linux on host 172.31.32.38 is using the discovered Python interpreter at
+/usr/bin/python, but future installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more
+information.
+
+ok: [172.31.32.38]
+
+TASK [debug] *************************************************************************************
+ok: [172.31.32.38] => {
+    "msg": "Inventory hostnames are 172.31.32.38"
+}
+
+TASK [debug] *************************************************************************************
+ok: [172.31.32.38] => {
+    "msg": "Port variable is 8087 & username is raghu"
+}
+
+PLAY RECAP ***************************************************************************************
+172.31.32.38               : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescue                        d=0    ignored=0
+
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# ll
+total 12
+-rw-r--r-- 1 root root 455 Jan 28 09:34 apache.yml
+-rw-r--r-- 1 root root 221 Jan 30 05:39 user.yml
+-rw-r--r-- 1 root root 229 Jan 30 05:47 var.yml
+[root@ip-172-31-46-220 playbook]# cat var.yml
+---
+ - hosts: all
+   vars:
+      http_port: 8087
+      username: raghu
+
+   tasks:
+      - debug: msg="Inventory hostnames are {{inventory_hostname}}"
+      - debug: msg="Port variable is {{http_port}} & username is {{username}}"
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# ll
+total 12
+-rw-r--r-- 1 root root 455 Jan 28 09:34 apache.yml
+-rw-r--r-- 1 root root 221 Jan 30 05:39 user.yml
+-rw-r--r-- 1 root root 229 Jan 30 05:47 var.yml
+[root@ip-172-31-46-220 playbook]# vi prompt.yml
+[root@ip-172-31-46-220 playbook]# ansible-playbook prompt.yml --syntax-check
+[WARNING]: Could not match supplied host pattern, ignoring: dbservers
+
+
+playbook: prompt.yml
+[root@ip-172-31-46-220 playbook]# vi prompt.yml
+[root@ip-172-31-46-220 playbook]# ansible-playbook prompt.yml --syntax-check
+
+playbook: prompt.yml
+[root@ip-172-31-46-220 playbook]# ansible-playbook prompt.yml
+Enter password for database:
+
+PLAY [Servers] ***********************************************************************************
+
+TASK [Gathering Facts] ***************************************************************************
+[WARNING]: Platform linux on host 172.31.32.38 is using the discovered Python interpreter at
+/usr/bin/python, but future installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more
+information.
+
+ok: [172.31.32.38]
+
+TASK [debug] *************************************************************************************
+fatal: [172.31.32.38]: FAILED! => {"msg": "The task includes an option with an undefined variable.                         The error was: 'unicode object' has no attribute 'stdout'\n\nThe error appears to be in '/etc/ans                        ible/playbook/prompt.yml': line 12, column 7, but may\nbe elsewhere in the file depending on the e                        xact syntax problem.\n\nThe offending line appears to be:\n\n  tasks:\n    - debug: msg=\" DB pass                        word is {{dbpass.stdout}}\"\n      ^ here\nWe could be wrong, but this one looks like it might be                         an issue with\nmissing quotes. Always quote template expression brackets when they\nstart a value.                         For instance:\n\n    with_items:\n      - {{ foo }}\n\nShould be written as:\n\n    with_items:\n                              - \"{{ foo }}\"\n"}
+
+PLAY RECAP ***************************************************************************************
+172.31.32.38               : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescue                        d=0    ignored=0
+
+[root@ip-172-31-46-220 playbook]# vi prompt.yml
+[root@ip-172-31-46-220 playbook]# ansible-playbook prompt.yml
+Enter password for database:
+
+PLAY [Servers] ***********************************************************************************
+
+TASK [Gathering Facts] ***************************************************************************
+[WARNING]: Platform linux on host 172.31.32.38 is using the discovered Python interpreter at
+/usr/bin/python, but future installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more
+information.
+
+ok: [172.31.32.38]
+
+TASK [debug] *************************************************************************************
+ok: [172.31.32.38] => {
+    "msg": " DB password is JCPenney"
+}
+
+PLAY RECAP ***************************************************************************************
+172.31.32.38               : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescue                        d=0    ignored=0
+
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# ll
+total 16
+-rw-r--r-- 1 root root 455 Jan 28 09:34 apache.yml
+-rw-r--r-- 1 root root 210 Jan 30 05:58 prompt.yml
+-rw-r--r-- 1 root root 221 Jan 30 05:39 user.yml
+-rw-r--r-- 1 root root 229 Jan 30 05:47 var.yml
+[root@ip-172-31-46-220 playbook]# vi prompt.yml
+[root@ip-172-31-46-220 playbook]# ll
+total 16
+-rw-r--r-- 1 root root 455 Jan 28 09:34 apache.yml
+-rw-r--r-- 1 root root 210 Jan 30 05:58 prompt.yml
+-rw-r--r-- 1 root root 221 Jan 30 05:39 user.yml
+-rw-r--r-- 1 root root 229 Jan 30 05:47 var.yml
+[root@ip-172-31-46-220 playbook]# vi var.yml
+[root@ip-172-31-46-220 playbook]# vi prompt.yml
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# vi handler.yml
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# vi handler.yml
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# vi proxy.conf
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# ansible-playbook handler.yml
+[WARNING]: Could not match supplied host pattern, ignoring: webservers
+
+
+PLAY [webservers] ********************************************************************************************************
+skipping: no hosts matched
+
+PLAY RECAP ***************************************************************************************************************
+
+[root@ip-172-31-46-220 playbook]# vi handler.yml
+[root@ip-172-31-46-220 playbook]# ansible-playbook handler.yml  --syntax-check
+
+playbook: handler.yml
+[root@ip-172-31-46-220 playbook]# ansible-playbook handler.yml
+
+PLAY [Servers] ***********************************************************************************************************
+
+TASK [Gathering Facts] ***************************************************************************************************
+[WARNING]: Platform linux on host 172.31.32.38 is using the discovered Python interpreter at /usr/bin/python, but future
+installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+
+ok: [172.31.32.38]
+
+TASK [install apache] ****************************************************************************************************
+ok: [172.31.32.38]
+
+TASK [install tomcat] ****************************************************************************************************
+changed: [172.31.32.38]
+
+TASK [install sample apps] ***********************************************************************************************
+changed: [172.31.32.38]
+
+TASK [start tomcat] ******************************************************************************************************
+changed: [172.31.32.38]
+
+TASK [Copy the website config file] **************************************************************************************
+changed: [172.31.32.38]
+
+RUNNING HANDLER [Apache Restart] *****************************************************************************************
+changed: [172.31.32.38]
+
+PLAY RECAP ***************************************************************************************************************
+172.31.32.38               : ok=7    changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# ll
+total 24
+-rw-r--r-- 1 root root 455 Jan 28 09:34 apache.yml
+-rw-r--r-- 1 root root 562 Jan 30 06:15 handler.yml
+-rw-r--r-- 1 root root 210 Jan 30 05:58 prompt.yml
+-rw-r--r-- 1 root root 109 Jan 30 06:14 proxy.conf
+-rw-r--r-- 1 root root 221 Jan 30 05:39 user.yml
+-rw-r--r-- 1 root root 229 Jan 30 05:47 var.yml
+[root@ip-172-31-46-220 playbook]# vi handler.yml
+[root@ip-172-31-46-220 playbook]# cat proxy.conf
+ProxyPass /examples http://127.0.0.1:8080/examples
+ProxyPassReverse /examples http://127.0.0.1:8080/examples
+[root@ip-172-31-46-220 playbook]# cat handler.yml
+---
+- hosts: Servers
+  become: yes
+  tasks:
+     - name: install apache
+       yum: name=httpd state=latest
+
+     - name: install tomcat
+       yum: name=tomcat7 state=latest
+
+     - name: install sample apps
+       yum: name=tomcat7-webapps state=latest
+
+     - name: start tomcat
+       service: name=tomcat7 state=restarted
+
+     - name: Copy the website config file
+       copy: src=proxy.conf dest=/etc/httpd/conf.d/proxy.conf
+
+       notify:
+           - Apache Restart
+
+  handlers:
+     - name: Apache Restart
+       service: name=httpd state=restarted
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# ll
+total 24
+-rw-r--r-- 1 root root 455 Jan 28 09:34 apache.yml
+-rw-r--r-- 1 root root 562 Jan 30 06:15 handler.yml
+-rw-r--r-- 1 root root 210 Jan 30 05:58 prompt.yml
+-rw-r--r-- 1 root root 109 Jan 30 06:14 proxy.conf
+-rw-r--r-- 1 root root 221 Jan 30 05:39 user.yml
+-rw-r--r-- 1 root root 229 Jan 30 05:47 var.yml
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# pwd
+/etc/ansible/playbook
+[root@ip-172-31-46-220 playbook]# ll
+total 24
+-rw-r--r-- 1 root root 455 Jan 28 09:34 apache.yml
+-rw-r--r-- 1 root root 562 Jan 30 06:15 handler.yml
+-rw-r--r-- 1 root root 210 Jan 30 05:58 prompt.yml
+-rw-r--r-- 1 root root 109 Jan 30 06:14 proxy.conf
+-rw-r--r-- 1 root root 221 Jan 30 05:39 user.yml
+-rw-r--r-- 1 root root 229 Jan 30 05:47 var.yml
+[root@ip-172-31-46-220 playbook]# vi html.yml
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# mkdir templates
+[root@ip-172-31-46-220 playbook]# vi templates/index.html
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# cat html.yml
+---
+- hosts: Servers
+  sudo: yes
+  vars:
+      username: Ashok
+      doc_root: /var/www/html/
+  tasks:
+     - name: Copy site file
+       template: src=templates/index.html dest={{doc_root}}/index.html mode=0644
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# ansible-playbook html.yml --syntax-check
+ERROR! 'sudo' is not a valid attribute for a Play
+
+The error appears to be in '/etc/ansible/playbook/html.yml': line 2, column 3, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+---
+- hosts: Servers
+  ^ here
+
+[root@ip-172-31-46-220 playbook]# vi html.yml
+[root@ip-172-31-46-220 playbook]# ansible-playbook html.yml --syntax-check
+
+playbook: html.yml
+[root@ip-172-31-46-220 playbook]# ansible-playbook html.yml
+
+PLAY [Servers] ***********************************************************************************************************
+
+TASK [Gathering Facts] ***************************************************************************************************
+fatal: [172.31.32.38]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: Permission denied (publickey).", "unreachable": true}
+
+PLAY RECAP ***************************************************************************************************************
+172.31.32.38               : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0
+
+[root@ip-172-31-46-220 playbook]# vi html.yml
+[root@ip-172-31-46-220 playbook]# ansible-playbook html.yml
+
+PLAY [Servers] ***********************************************************************************************************
+
+TASK [Gathering Facts] ***************************************************************************************************
+[WARNING]: Platform linux on host 172.31.32.38 is using the discovered Python interpreter at /usr/bin/python, but future
+installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+
+ok: [172.31.32.38]
+
+TASK [Copy site file] ****************************************************************************************************
+changed: [172.31.32.38]
+
+PLAY RECAP ***************************************************************************************************************
+172.31.32.38               : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# vi html.yml
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# ll
+total 32
+-rw-r--r-- 1 root root  455 Jan 28 09:34 apache.yml
+-rw-r--r-- 1 root root  562 Jan 30 06:15 handler.yml
+-rw-r--r-- 1 root root  214 Jan 30 06:56 html.yml
+-rw-r--r-- 1 root root  210 Jan 30 05:58 prompt.yml
+-rw-r--r-- 1 root root  109 Jan 30 06:14 proxy.conf
+drwxr-xr-x 2 root root 4096 Jan 30 06:55 templates
+-rw-r--r-- 1 root root  221 Jan 30 05:39 user.yml
+-rw-r--r-- 1 root root  229 Jan 30 05:47 var.yml
+[root@ip-172-31-46-220 playbook]# vi prompt.yml
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# vi html.yml
+[root@ip-172-31-46-220 playbook]# vi templates/index.html
+[root@ip-172-31-46-220 playbook]# ansible-playbook html.yml
+Enter your name: :
+
+PLAY [Servers] ***********************************************************************************************************
+
+TASK [Gathering Facts] ***************************************************************************************************
+[WARNING]: Platform linux on host 172.31.32.38 is using the discovered Python interpreter at /usr/bin/python, but future
+installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+
+ok: [172.31.32.38]
+
+TASK [Copy site file] ****************************************************************************************************
+changed: [172.31.32.38]
+
+PLAY RECAP ***************************************************************************************************************
+172.31.32.38               : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# ll
+total 32
+-rw-r--r-- 1 root root  455 Jan 28 09:34 apache.yml
+-rw-r--r-- 1 root root  562 Jan 30 06:15 handler.yml
+-rw-r--r-- 1 root root  282 Jan 30 06:58 html.yml
+-rw-r--r-- 1 root root  210 Jan 30 05:58 prompt.yml
+-rw-r--r-- 1 root root  109 Jan 30 06:14 proxy.conf
+drwxr-xr-x 2 root root 4096 Jan 30 06:59 templates
+-rw-r--r-- 1 root root  221 Jan 30 05:39 user.yml
+-rw-r--r-- 1 root root  229 Jan 30 05:47 var.yml
+[root@ip-172-31-46-220 playbook]# cat html.yml
+---
+- hosts: Servers
+  become: yes
+  vars:
+      username: Ashok
+      doc_root: /var/www/html/
+  vars_prompt:
+    - name: "user"
+      prompt: "Enter your name: "
+  tasks:
+     - name: Copy site file
+       template: src=templates/index.html dest={{doc_root}}/index.html mode=0644
+[root@ip-172-31-46-220 playbook]# cat templates/index.html
+<html>
+<head><title>Hello from Raghu</title></head>
+<body>
+<h1> Congrats </h1>
+<p> Nice Job {{ user }} </p>
+</body>
+</html>
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# ll
+total 32
+-rw-r--r-- 1 root root  455 Jan 28 09:34 apache.yml
+-rw-r--r-- 1 root root  562 Jan 30 06:15 handler.yml
+-rw-r--r-- 1 root root  282 Jan 30 06:58 html.yml
+-rw-r--r-- 1 root root  210 Jan 30 05:58 prompt.yml
+-rw-r--r-- 1 root root  109 Jan 30 06:14 proxy.conf
+drwxr-xr-x 2 root root 4096 Jan 30 06:59 templates
+-rw-r--r-- 1 root root  221 Jan 30 05:39 user.yml
+-rw-r--r-- 1 root root  229 Jan 30 05:47 var.yml
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# cat html.yml
+---
+- hosts: Servers
+  become: yes
+  vars:
+      username: Ashok
+      doc_root: /var/www/html/
+  vars_prompt:
+    - name: "user"
+      prompt: "Enter your name: "
+  tasks:
+     - name: Copy site file
+       template: src=templates/index.html dest={{doc_root}}/index.html mode=0644
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]#
+[root@ip-172-31-46-220 playbook]# ll
+total 32
+-rw-r--r-- 1 root root  455 Jan 28 09:34 apache.yml
+-rw-r--r-- 1 root root  562 Jan 30 06:15 handler.yml
+-rw-r--r-- 1 root root  282 Jan 30 06:58 html.yml
+-rw-r--r-- 1 root root  210 Jan 30 05:58 prompt.yml
+-rw-r--r-- 1 root root  109 Jan 30 06:14 proxy.conf
+drwxr-xr-x 2 root root 4096 Jan 30 06:59 templates
+-rw-r--r-- 1 root root  221 Jan 30 05:39 user.yml
+-rw-r--r-- 1 root root  229 Jan 30 05:47 var.yml
+[root@ip-172-31-46-220 playbook]# ansible-playbook html.yml --syntax-check
+
+playbook: html.yml
+[root@ip-172-31-46-220 playbook]# ansible-playbook html.yml
+Enter your name: :
+
+PLAY [Servers] ***********************************************************************************************************
+
+TASK [Gathering Facts] ***************************************************************************************************
+[WARNING]: Platform linux on host 172.31.32.38 is using the discovered Python interpreter at /usr/bin/python, but future
+installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+
+ok: [172.31.32.38]
+
+TASK [Copy site file] ****************************************************************************************************
+changed: [172.31.32.38]
+
+PLAY RECAP ***************************************************************************************************************
+172.31.32.38               : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+[root@ip-172-31-46-220 playbook]#
+login as: ec2-user
+Authenticating with public key "imported-openssh-key"
+Last login: Thu Jan 30 05:15:13 2020 from 115.110.193.50
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-ami/2018.03-release-notes/
+No packages needed for security; 5 packages available
+Run "sudo yum update" to apply all updates.
+[ec2-user@ip-172-31-46-220 ~]$
+[ec2-user@ip-172-31-46-220 ~]$
+[ec2-user@ip-172-31-46-220 ~]$
+[ec2-user@ip-172-31-46-220 ~]$ sudo su -
+Last login: Thu Jan 30 05:15:16 UTC 2020 on pts/0
+[root@ip-172-31-46-220 ~]#
+[root@ip-172-31-46-220 ~]#
+[root@ip-172-31-46-220 ~]#
+[root@ip-172-31-46-220 ~]#
+[root@ip-172-31-46-220 ~]# cd /etc/ansible/
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]# ll
+total 8
+-rw-r--r-- 1 root root   23 Jan 28 09:11 hosts
+drwxr-xr-x 4 root root 4096 Jan 30 06:58 playbook
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]# ansible-galaxy init apache
+- Role apache was created successfully
+[root@ip-172-31-46-220 ansible]# ll
+total 12
+drwxr-xr-x 10 root root 4096 Jan 30 09:28 apache
+-rw-r--r--  1 root root   23 Jan 28 09:11 hosts
+drwxr-xr-x  4 root root 4096 Jan 30 06:58 playbook
+[root@ip-172-31-46-220 ansible]# yum install tree
+Loaded plugins: priorities, update-motd, upgrade-helper
+amzn-main                                                                                          | 2.1 kB  00:00:00
+amzn-updates                                                                                       | 2.5 kB  00:00:00
+Resolving Dependencies
+--> Running transaction check
+---> Package tree.x86_64 0:1.6.0-5.8.amzn1 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+==========================================================================================================================
+ Package                 Arch                      Version                             Repository                    Size
+==========================================================================================================================
+Installing:
+ tree                    x86_64                    1.6.0-5.8.amzn1                     amzn-main                     48 k
+
+Transaction Summary
+==========================================================================================================================
+Install  1 Package
+
+Total download size: 48 k
+Installed size: 82 k
+Is this ok [y/d/N]: y
+Downloading packages:
+tree-1.6.0-5.8.amzn1.x86_64.rpm                                                                    |  48 kB  00:00:00
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : tree-1.6.0-5.8.amzn1.x86_64                                                                            1/1
+  Verifying  : tree-1.6.0-5.8.amzn1.x86_64                                                                            1/1
+
+Installed:
+  tree.x86_64 0:1.6.0-5.8.amzn1
+
+Complete!
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]# tree apache
+apache
+├── defaults
+│   └── main.yml
+├── files
+├── handlers
+│   └── main.yml
+├── meta
+│   └── main.yml
+├── README.md
+├── tasks
+│   └── main.yml
+├── templates
+├── tests
+│   ├── inventory
+│   └── test.yml
+└── vars
+    └── main.yml
+
+8 directories, 8 files
+[root@ip-172-31-46-220 ansible]# ll
+total 12
+drwxr-xr-x 10 root root 4096 Jan 30 09:28 apache
+-rw-r--r--  1 root root   23 Jan 28 09:11 hosts
+drwxr-xr-x  4 root root 4096 Jan 30 06:58 playbook
+[root@ip-172-31-46-220 ansible]# cd apache/
+[root@ip-172-31-46-220 apache]#
+[root@ip-172-31-46-220 apache]#
+[root@ip-172-31-46-220 apache]# ll
+total 36
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 defaults
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 files
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 handlers
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 meta
+-rw-r--r-- 1 root root 1328 Jan 30 09:28 README.md
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 tasks
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 templates
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 tests
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 vars
+[root@ip-172-31-46-220 apache]# cd tasks
+[root@ip-172-31-46-220 tasks]# ll
+total 4
+-rw-r--r-- 1 root root 27 Jan 30 09:28 main.yml
+[root@ip-172-31-46-220 tasks]# pwd
+/etc/ansible/apache/tasks
+[root@ip-172-31-46-220 tasks]# cat /etc/ansible/
+apache/   hosts     playbook/
+[root@ip-172-31-46-220 tasks]# cat /etc/ansible/playbook/
+apache.yml   .git/        handler.yml  html.yml     prompt.yml   proxy.conf   templates/   user.yml     var.yml
+[root@ip-172-31-46-220 tasks]# cat /etc/ansible/playbook/apache.yml
+---
+- hosts: Servers
+  vars:
+    http_port: 80
+    max_clients: 200
+  remote_user: root
+  tasks:
+  - name: ensure apache is at the latest version
+    yum:
+      name: httpd
+      state: latest
+    notify:
+    - restart apache
+  - name: ensure apache is running (and enable it at boot)
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+  handlers:
+    - name: restart apache
+      service:
+        name: httpd
+        state: restarted
+[root@ip-172-31-46-220 tasks]#
+[root@ip-172-31-46-220 tasks]#
+[root@ip-172-31-46-220 tasks]# pwd
+/etc/ansible/apache/tasks
+[root@ip-172-31-46-220 tasks]# vi main.yml
+[root@ip-172-31-46-220 tasks]# cd ..
+[root@ip-172-31-46-220 apache]# ll
+total 36
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 defaults
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 files
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 handlers
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 meta
+-rw-r--r-- 1 root root 1328 Jan 30 09:28 README.md
+drwxr-xr-x 2 root root 4096 Jan 30 09:32 tasks
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 templates
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 tests
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 vars
+[root@ip-172-31-46-220 apache]# vi handlers/main.yml ^C
+[root@ip-172-31-46-220 apache]# pwd
+/etc/ansible/apache
+[root@ip-172-31-46-220 apache]# cat /etc/ansible/playbook/apache.yml
+---
+- hosts: Servers
+  vars:
+    http_port: 80
+    max_clients: 200
+  remote_user: root
+  tasks:
+  - name: ensure apache is at the latest version
+    yum:
+      name: httpd
+      state: latest
+    notify:
+    - restart apache
+  - name: ensure apache is running (and enable it at boot)
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+  handlers:
+    - name: restart apache
+      service:
+        name: httpd
+        state: restarted
+[root@ip-172-31-46-220 apache]# vi main.yml ^C
+[root@ip-172-31-46-220 apache]#
+[root@ip-172-31-46-220 apache]#
+[root@ip-172-31-46-220 apache]# ll
+total 36
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 defaults
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 files
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 handlers
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 meta
+-rw-r--r-- 1 root root 1328 Jan 30 09:28 README.md
+drwxr-xr-x 2 root root 4096 Jan 30 09:32 tasks
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 templates
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 tests
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 vars
+[root@ip-172-31-46-220 apache]# vi handlers/main.yml
+[root@ip-172-31-46-220 apache]#
+[root@ip-172-31-46-220 apache]# ll
+total 36
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 defaults
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 files
+drwxr-xr-x 2 root root 4096 Jan 30 09:33 handlers
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 meta
+-rw-r--r-- 1 root root 1328 Jan 30 09:28 README.md
+drwxr-xr-x 2 root root 4096 Jan 30 09:32 tasks
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 templates
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 tests
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 vars
+[root@ip-172-31-46-220 apache]# cat /etc/ansible/playbook/apache.yml
+---
+- hosts: Servers
+  vars:
+    http_port: 80
+    max_clients: 200
+  remote_user: root
+  tasks:
+  - name: ensure apache is at the latest version
+    yum:
+      name: httpd
+      state: latest
+    notify:
+    - restart apache
+  - name: ensure apache is running (and enable it at boot)
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+  handlers:
+    - name: restart apache
+      service:
+        name: httpd
+        state: restarted
+[root@ip-172-31-46-220 apache]# vi handlers/main.yml
+[root@ip-172-31-46-220 apache]#
+[root@ip-172-31-46-220 apache]# vi vars/main.yml
+[root@ip-172-31-46-220 apache]#
+[root@ip-172-31-46-220 apache]# cat /etc/ansible/playbook/apache.yml
+---
+- hosts: Servers
+  vars:
+    http_port: 80
+    max_clients: 200
+  remote_user: root
+  tasks:
+  - name: ensure apache is at the latest version
+    yum:
+      name: httpd
+      state: latest
+    notify:
+    - restart apache
+  - name: ensure apache is running (and enable it at boot)
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+  handlers:
+    - name: restart apache
+      service:
+        name: httpd
+        state: restarted
+[root@ip-172-31-46-220 apache]# ll
+total 36
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 defaults
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 files
+drwxr-xr-x 2 root root 4096 Jan 30 09:34 handlers
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 meta
+-rw-r--r-- 1 root root 1328 Jan 30 09:28 README.md
+drwxr-xr-x 2 root root 4096 Jan 30 09:32 tasks
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 templates
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 tests
+drwxr-xr-x 2 root root 4096 Jan 30 09:34 vars
+[root@ip-172-31-46-220 apache]#
+[root@ip-172-31-46-220 apache]# vi tasks/main.yml
+[root@ip-172-31-46-220 apache]#
+[root@ip-172-31-46-220 apache]#
+[root@ip-172-31-46-220 apache]#
+[root@ip-172-31-46-220 apache]# ll
+total 36
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 defaults
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 files
+drwxr-xr-x 2 root root 4096 Jan 30 09:34 handlers
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 meta
+-rw-r--r-- 1 root root 1328 Jan 30 09:28 README.md
+drwxr-xr-x 2 root root 4096 Jan 30 09:34 tasks
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 templates
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 tests
+drwxr-xr-x 2 root root 4096 Jan 30 09:34 vars
+[root@ip-172-31-46-220 apache]# pwd
+/etc/ansible/apache
+[root@ip-172-31-46-220 apache]# ll
+total 36
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 defaults
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 files
+drwxr-xr-x 2 root root 4096 Jan 30 09:34 handlers
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 meta
+-rw-r--r-- 1 root root 1328 Jan 30 09:28 README.md
+drwxr-xr-x 2 root root 4096 Jan 30 09:34 tasks
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 templates
+drwxr-xr-x 2 root root 4096 Jan 30 09:28 tests
+drwxr-xr-x 2 root root 4096 Jan 30 09:34 vars
+[root@ip-172-31-46-220 apache]# cd ..
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]# ll
+total 12
+drwxr-xr-x 10 root root 4096 Jan 30 09:28 apache
+-rw-r--r--  1 root root   23 Jan 28 09:11 hosts
+drwxr-xr-x  4 root root 4096 Jan 30 06:58 playbook
+[root@ip-172-31-46-220 ansible]# vi web.yml
+[root@ip-172-31-46-220 ansible]# vi web.yml
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]#
+[root@ip-172-31-46-220 ansible]# pwd
+/etc/ansible
+[root@ip-172-31-46-220 ansible]# ll
+total 16
+drwxr-xr-x 10 root root 4096 Jan 30 09:28 apache
+-rw-r--r--  1 root root   23 Jan 28 09:11 hosts
+drwxr-xr-x  4 root root 4096 Jan 30 06:58 playbook
+-rw-r--r--  1 root root  117 Jan 30 09:37 web.yml
+[root@ip-172-31-46-220 ansible]# mkdir roles
+[root@ip-172-31-46-220 ansible]# cd roles/
+[root@ip-172-31-46-220 roles]#
+[root@ip-172-31-46-220 roles]#
+[root@ip-172-31-46-220 roles]#
+[root@ip-172-31-46-220 roles]# git clone https://github.com/raghuopsdev/ansible-examples.git
+Cloning into 'ansible-examples'...
+remote: Enumerating objects: 2, done.
+remote: Counting objects: 100% (2/2), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3347 (delta 0), reused 0 (delta 0), pack-reused 3345
+Receiving objects: 100% (3347/3347), 51.26 MiB | 7.31 MiB/s, done.
+Resolving deltas: 100% (1169/1169), done.
+[root@ip-172-31-46-220 roles]# ll
+total 4
+drwxr-xr-x 17 root root 4096 Jan 30 10:47 ansible-examples
+[root@ip-172-31-46-220 roles]# cd ansible-examples/
+[root@ip-172-31-46-220 ansible-examples]# ll
+total 56
+drwxr-xr-x 4 root root 4096 Jan 30 10:47 jboss-standalone
+drwxr-xr-x 5 root root 4096 Jan 30 10:47 lamp_haproxy
+drwxr-xr-x 4 root root 4096 Jan 30 10:47 lamp_simple
+drwxr-xr-x 4 root root 4096 Jan 30 10:47 lamp_simple_rhel7
+drwxr-xr-x 9 root root 4096 Jan 30 10:47 language_features
+drwxr-xr-x 6 root root 4096 Jan 30 10:47 mongodb
+drwxr-xr-x 2 root root 4096 Jan 30 10:47 phillips_hue
+-rw-r--r-- 1 root root  122 Jan 30 10:47 README.md
+drwxr-xr-x 4 root root 4096 Jan 30 10:47 rust-module-hello-world
+drwxr-xr-x 4 root root 4096 Jan 30 10:47 tomcat-memcached-failover
+drwxr-xr-x 4 root root 4096 Jan 30 10:47 tomcat-standalone
+drwxr-xr-x 4 root root 4096 Jan 30 10:47 windows
+drwxr-xr-x 4 root root 4096 Jan 30 10:47 wordpress-nginx
+drwxr-xr-x 4 root root 4096 Jan 30 10:47 wordpress-nginx_rhel7
+[root@ip-172-31-46-220 ansible-examples]#
+[root@ip-172-31-46-220 ansible-examples]#
+[root@ip-172-31-46-220 ansible-examples]#
+[root@ip-172-31-46-220 ansible-examples]#
+[root@ip-172-31-46-220 ansible-examples]#
+[root@ip-172-31-46-220 ansible-examples]# cd lamp_simple
+[root@ip-172-31-46-220 lamp_simple]# ll
+total 24
+drwxr-xr-x 2 root root 4096 Jan 30 10:47 group_vars
+-rw-r--r-- 1 root root   38 Jan 30 10:47 hosts
+-rw-r--r-- 1 root root  217 Jan 30 10:47 LICENSE.md
+-rw-r--r-- 1 root root  972 Jan 30 10:47 README.md
+drwxr-xr-x 5 root root 4096 Jan 30 10:47 roles
+-rw-r--r-- 1 root root  409 Jan 30 10:47 site.yml
+[root@ip-172-31-46-220 lamp_simple]#
+[root@ip-172-31-46-220 lamp_simple]#
+[root@ip-172-31-46-220 lamp_simple]# vi site.yml
+[root@ip-172-31-46-220 lamp_simple]#
+[root@ip-172-31-46-220 lamp_simple]#
+[root@ip-172-31-46-220 lamp_simple]#
+[root@ip-172-31-46-220 lamp_simple]#
+[root@ip-172-31-46-220 lamp_simple]#
+[root@ip-172-31-46-220 lamp_simple]#
+[root@ip-172-31-46-220 lamp_simple]#
+[root@ip-172-31-46-220 lamp_simple]# pwd
+/etc/ansible/roles/ansible-examples/lamp_simple
+[root@ip-172-31-46-220 lamp_simple]# ll
+total 24
+drwxr-xr-x 2 root root 4096 Jan 30 10:47 group_vars
+-rw-r--r-- 1 root root   38 Jan 30 10:47 hosts
+-rw-r--r-- 1 root root  217 Jan 30 10:47 LICENSE.md
+-rw-r--r-- 1 root root  972 Jan 30 10:47 README.md
+drwxr-xr-x 5 root root 4096 Jan 30 10:47 roles
+-rw-r--r-- 1 root root  409 Jan 30 10:47 site.yml
+[root@ip-172-31-46-220 lamp_simple]# cd roles/
+[root@ip-172-31-46-220 roles]# ll
+total 12
+drwxr-xr-x 5 root root 4096 Jan 30 10:47 common
+drwxr-xr-x 5 root root 4096 Jan 30 10:47 db
+drwxr-xr-x 5 root root 4096 Jan 30 10:47 web
+[root@ip-172-31-46-220 roles]# cd common/
+[root@ip-172-31-46-220 common]# ll
+total 12
+drwxr-xr-x 2 root root 4096 Jan 30 10:47 handlers
+drwxr-xr-x 2 root root 4096 Jan 30 10:47 tasks
+drwxr-xr-x 2 root root 4096 Jan 30 10:47 templates
+[root@ip-172-31-46-220 common]# cd tasks/
+[root@ip-172-31-46-220 tasks]# ll
+total 4
+-rw-r--r-- 1 root root 443 Jan 30 10:47 main.yml
+[root@ip-172-31-46-220 tasks]# vi main.yml
+[root@ip-172-31-46-220 tasks]#
+[root@ip-172-31-46-220 tasks]# cd ..
+[root@ip-172-31-46-220 common]# cd templates/
+[root@ip-172-31-46-220 templates]#
+[root@ip-172-31-46-220 templates]#
+[root@ip-172-31-46-220 templates]#
+[root@ip-172-31-46-220 templates]# ll
+total 4
+-rw-r--r-- 1 root root 144 Jan 30 10:47 ntp.conf.j2
+[root@ip-172-31-46-220 templates]# vi ntp.conf.j2
+[root@ip-172-31-46-220 templates]#
+[root@ip-172-31-46-220 templates]#
+[root@ip-172-31-46-220 templates]# cd ..
+[root@ip-172-31-46-220 common]# ll
+total 12
+drwxr-xr-x 2 root root 4096 Jan 30 10:47 handlers
+drwxr-xr-x 2 root root 4096 Jan 30 10:49 tasks
+drwxr-xr-x 2 root root 4096 Jan 30 10:49 templates
+[root@ip-172-31-46-220 common]# cd handlers/
+[root@ip-172-31-46-220 handlers]# ll
+total 4
+-rw-r--r-- 1 root root 228 Jan 30 10:47 main.yml
+[root@ip-172-31-46-220 handlers]# vi main.yml
+[root@ip-172-31-46-220 handlers]#
+[root@ip-172-31-46-220 handlers]#
+[root@ip-172-31-46-220 handlers]# cd ..
+[root@ip-172-31-46-220 common]# ll
+total 12
+drwxr-xr-x 2 root root 4096 Jan 30 10:53 handlers
+drwxr-xr-x 2 root root 4096 Jan 30 10:49 tasks
+drwxr-xr-x 2 root root 4096 Jan 30 10:49 templates
+[root@ip-172-31-46-220 common]#
+[root@ip-172-31-46-220 common]#
+[root@ip-172-31-46-220 common]#
+[root@ip-172-31-46-220 common]#
+[root@ip-172-31-46-220 common]# cd ..
+[root@ip-172-31-46-220 roles]#
+[root@ip-172-31-46-220 roles]#
+[root@ip-172-31-46-220 roles]# ll
+total 12
+drwxr-xr-x 5 root root 4096 Jan 30 10:47 common
+drwxr-xr-x 5 root root 4096 Jan 30 10:47 db
+drwxr-xr-x 5 root root 4096 Jan 30 10:47 web
+[root@ip-172-31-46-220 roles]# cd web/
+[root@ip-172-31-46-220 web]# ll
+total 12
+drwxr-xr-x 2 root root 4096 Jan 30 10:47 handlers
+drwxr-xr-x 2 root root 4096 Jan 30 10:47 tasks
+drwxr-xr-x 2 root root 4096 Jan 30 10:47 templates
+[root@ip-172-31-46-220 web]# vi tasks/main.yml
+[root@ip-172-31-46-220 web]# vi handlers/main.yml
+[root@ip-172-31-46-220 web]# cd tasks/
+[root@ip-172-31-46-220 tasks]# ll
+total 12
+-rw-r--r-- 1 root root 294 Jan 30 10:47 copy_code.yml
+-rw-r--r-- 1 root root 733 Jan 30 10:47 install_httpd.yml
+-rw-r--r-- 1 root root  58 Jan 30 10:47 main.yml
+[root@ip-172-31-46-220 tasks]# pwd
+/etc/ansible/roles/ansible-examples/lamp_simple/roles/web/tasks
+[root@ip-172-31-46-220 tasks]# cat main.yml
+---
+- include: install_httpd.yml
+- include: copy_code.yml
+[root@ip-172-31-46-220 tasks]# history
+    1  pip install ansible
+    2  which ansible
+    3  ansible -version
+    4  ansible --version
+    5  history
+    6  which ansible
+    7  echo $ansible
+    8  echo $JAVA_HOME
+    9  which ansible
+   10  ll /usr/local/bin/ansible
+   11  cd /usr/bin/
+   12  ll
+   13  cd /root/.ssh/
+   14  ll
+   15  ssh-keygen
+   16  ll
+   17  pwd
+   18  cat id_rsa.pub
+   19  pwd
+   20  ll
+   21  cat id_rsa.pub
+   22  ssh 172.31.32.38
+   23  ansible -m ping all
+   24  mkdir -p /etc/ansible
+   25  cd /etc/ansible/
+   26  vi hosts
+   27  ansible -m ping all
+   28  pwd
+   29  mkdir playbook
+   30  vi apache.yml
+   31  ansible-playbook apache.yml --syntax-check
+   32  ansible-playbook apache.yml
+   33  vi apache.yml
+   34  which ansible-playbook
+   35  pwd
+   36  cd playbook/
+   37  ll
+   38  pwd
+   39  cd ..
+   40  ll
+   41  cd playbook/
+   42  yum install -y git; git init
+   43  mv ../apache.yml .
+   44  git remote add origin https://github.com/raghuopsdev/ansible.git
+   45  git status
+   46  git add .
+   47  git commit . -m "first exercise"
+   48  git push -u origin master
+   49  pwd
+   50  cd /etc/ansible/
+   51  ll
+   52  ansible-galaxy init apache
+   53  ll
+   54  yum install tree
+   55  tree apache
+   56  ll
+   57  cd apache/
+   58  ll
+   59  cd tasks
+   60  ll
+   61  pwd
+   62  cat /etc/ansible/playbook/apache.yml
+   63  pwd
+   64  vi main.yml
+   65  cd ..
+   66  ll
+   67  pwd
+   68  cat /etc/ansible/playbook/apache.yml
+   69  ll
+   70  vi handlers/main.yml
+   71  ll
+   72  cat /etc/ansible/playbook/apache.yml
+   73  vi handlers/main.yml
+   74  vi vars/main.yml
+   75  cat /etc/ansible/playbook/apache.yml
+   76  ll
+   77  vi tasks/main.yml
+   78  ll
+   79  pwd
+   80  ll
+   81  cd ..
+   82  ll
+   83  vi web.yml
+   84  pwd
+   85  ll
+   86  mkdir roles
+   87  cd roles/
+   88  git clone https://github.com/raghuopsdev/ansible-examples.git
+   89  ll
+   90  cd ansible-examples/
+   91  ll
+   92  cd lamp_simple
+   93  ll
+   94  vi site.yml
+   95  pwd
+   96  ll
+   97  cd roles/
+   98  ll
+   99  cd common/
+  100  ll
+  101  cd tasks/
+  102  ll
+  103  vi main.yml
+  104  cd ..
+  105  cd templates/
+  106  ll
+  107  vi ntp.conf.j2
+  108  cd ..
+  109  ll
+  110  cd handlers/
+  111  ll
+  112  vi main.yml
+  113  cd ..
+  114  ll
+  115  cd ..
+  116  ll
+  117  cd web/
+  118  ll
+  119  vi tasks/main.yml
+  120  vi handlers/main.yml
+  121  cd tasks/
+  122  ll
+  123  pwd
+  124  cat main.yml
+  125  history
+[root@ip-172-31-46-220 tasks]# cd ..
+[root@ip-172-31-46-220 web]# pwd
+/etc/ansible/roles/ansible-examples/lamp_simple/roles/web
+[root@ip-172-31-46-220 web]# cd ..
+[root@ip-172-31-46-220 roles]# ll
+total 12
+drwxr-xr-x 5 root root 4096 Jan 30 10:47 common
+drwxr-xr-x 5 root root 4096 Jan 30 10:47 db
+drwxr-xr-x 5 root root 4096 Jan 30 10:47 web
+[root@ip-172-31-46-220 roles]# cd ..
+[root@ip-172-31-46-220 lamp_simple]#
+[root@ip-172-31-46-220 lamp_simple]#
+[root@ip-172-31-46-220 lamp_simple]#
+[root@ip-172-31-46-220 lamp_simple]# ll
+total 24
+drwxr-xr-x 2 root root 4096 Jan 30 10:47 group_vars
+-rw-r--r-- 1 root root   38 Jan 30 10:47 hosts
+-rw-r--r-- 1 root root  217 Jan 30 10:47 LICENSE.md
+-rw-r--r-- 1 root root  972 Jan 30 10:47 README.md
+drwxr-xr-x 5 root root 4096 Jan 30 10:47 roles
+-rw-r--r-- 1 root root  409 Jan 30 10:47 site.yml
+[root@ip-172-31-46-220 lamp_simple]# vi site.yml
+[root@ip-172-31-46-220 lamp_simple]#
+[root@ip-172-31-46-220 lamp_simple]# cat hosts
+[webservers]
+web3
+
+[dbservers]
+web2
+
+
+[root@ip-172-31-46-220 lamp_simple]# cat site.yml
+---
+# This playbook deploys the whole application stack in this site.
+
+- name: apply common configuration to all nodes
+  hosts: all
+  remote_user: root
+
+  roles:
+    - common
+
+- name: configure and deploy the webservers and application code
+  hosts: Servers
+  remote_user: root
+
+  roles:
+    - web
+
+- name: deploy MySQL and configure the databases
+  hosts: Servers
+  remote_user: root
+
+  roles:
+    - db
+[root@ip-172-31-46-220 lamp_simple]#
+[root@ip-172-31-46-220 lamp_simple]#
+[root@ip-172-31-46-220 lamp_simple]#
+[root@ip-172-31-46-220 lamp_simple]#
+[root@ip-172-31-46-220 lamp_simple]# ansible-playbook site.yml --syntax-check
+
+playbook: site.yml
+[root@ip-172-31-46-220 lamp_simple]#
+[root@ip-172-31-46-220 lamp_simple]#
+[root@ip-172-31-46-220 lamp_simple]#
+[root@ip-172-31-46-220 lamp_simple]#
+[root@ip-172-31-46-220 lamp_simple]#
+[root@ip-172-31-46-220 lamp_simple]# ansible-playbook site.yml
+
+PLAY [apply common configuration to all nodes] ***************************************************************************
+
+TASK [Gathering Facts] ***************************************************************************************************
+[WARNING]: Platform linux on host 172.31.32.38 is using the discovered Python interpreter at /usr/bin/python, but future
+installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+
+ok: [172.31.32.38]
+
+TASK [common : Install ntp] **********************************************************************************************
+ok: [172.31.32.38]
+
+TASK [common : Configure ntp file] ***************************************************************************************
+changed: [172.31.32.38]
+
+TASK [common : Start the ntp service] ************************************************************************************
+ok: [172.31.32.38]
+
+TASK [common : test to see if selinux is running] ************************************************************************
+ok: [172.31.32.38]
+
+RUNNING HANDLER [common : restart ntp] ***********************************************************************************
+changed: [172.31.32.38]
+
+PLAY [configure and deploy the webservers and application code] **********************************************************
+
+TASK [Gathering Facts] ***************************************************************************************************
+ok: [172.31.32.38]
+
+TASK [web : Install http and php etc] ************************************************************************************
+[DEPRECATION WARNING]: Invoking "yum" only once while using a loop via squash_actions is deprecated. Instead of using a
+loop to supply multiple items and specifying `name: "{{ item }}"`, please use `name: ['httpd', 'php', 'php-mysql', 'git',
+ 'libsemanage-python', 'libselinux-python']` and remove the loop. This feature will be removed in version 2.11.
+Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+changed: [172.31.32.38] => (item=[u'httpd', u'php', u'php-mysql', u'git', u'libsemanage-python', u'libselinux-python'])
+
+TASK [web : insert iptables rule for httpd] ******************************************************************************
+[WARNING]: The value 80 (type int) in a string field was converted to u'80' (type string). If this does not look like
+what you expect, quote the entire value to ensure it does not change.
+
+changed: [172.31.32.38]
+
+TASK [web : http service state] ******************************************************************************************
+ok: [172.31.32.38]
+
+TASK [web : Configure SELinux to allow httpd to connect to remote database] **********************************************
+skipping: [172.31.32.38]
+
+TASK [web : Copy the code from repository] *******************************************************************************
+fatal: [172.31.32.38]: FAILED! => {"changed": false, "cmd": "/usr/bin/git clone --origin origin https://github.com/bennojoy/mywebapp.git /var/www/html", "msg": "fatal: destination path '/var/www/html' already exists and is not an empty directory.", "rc": 128, "stderr": "fatal: destination path '/var/www/html' already exists and is not an empty directory.\n", "stderr_lines": ["fatal: destination path '/var/www/html' already exists and is not an empty directory."], "stdout": "", "stdout_lines": []}
+
+RUNNING HANDLER [web : restart iptables] *********************************************************************************
+
+PLAY RECAP ***************************************************************************************************************
+172.31.32.38               : ok=10   changed=4    unreachable=0    failed=1    skipped=1    rescued=0    ignored=0
+
+[root@ip-172-31-46-220 lamp_simple]# yum remove httpd
+Loaded plugins: priorities, update-motd, upgrade-helper
+No Match for argument: httpd
+No Packages marked for removal
+[root@ip-172-31-46-220 lamp_simple]# yum remove httpd
+Loaded plugins: priorities, update-motd, upgrade-helper
+No Match for argument: httpd
+No Packages marked for removal
+[root@ip-172-31-46-220 lamp_simple]# ansible-playbook site.yml
+
+PLAY [apply common configuration to all nodes] ***************************************************************************
+
+TASK [Gathering Facts] ***************************************************************************************************
+[WARNING]: Platform linux on host 172.31.32.38 is using the discovered Python interpreter at /usr/bin/python, but future
+installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+
+ok: [172.31.32.38]
+
+TASK [common : Install ntp] **********************************************************************************************
+ok: [172.31.32.38]
+
+TASK [common : Configure ntp file] ***************************************************************************************
+ok: [172.31.32.38]
+
+TASK [common : Start the ntp service] ************************************************************************************
+ok: [172.31.32.38]
+
+TASK [common : test to see if selinux is running] ************************************************************************
+ok: [172.31.32.38]
+
+PLAY [configure and deploy the webservers and application code] **********************************************************
+
+TASK [Gathering Facts] ***************************************************************************************************
+ok: [172.31.32.38]
+
+TASK [web : Install http and php etc] ************************************************************************************
+[DEPRECATION WARNING]: Invoking "yum" only once while using a loop via squash_actions is deprecated. Instead of using a
+loop to supply multiple items and specifying `name: "{{ item }}"`, please use `name: ['httpd', 'php', 'php-mysql', 'git',
+ 'libsemanage-python', 'libselinux-python']` and remove the loop. This feature will be removed in version 2.11.
+Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+changed: [172.31.32.38] => (item=[u'httpd', u'php', u'php-mysql', u'git', u'libsemanage-python', u'libselinux-python'])
+
+TASK [web : insert iptables rule for httpd] ******************************************************************************
+[WARNING]: The value 80 (type int) in a string field was converted to u'80' (type string). If this does not look like
+what you expect, quote the entire value to ensure it does not change.
+
+ok: [172.31.32.38]
+
+TASK [web : http service state] ******************************************************************************************
+changed: [172.31.32.38]
+
+TASK [web : Configure SELinux to allow httpd to connect to remote database] **********************************************
+skipping: [172.31.32.38]
+
+TASK [web : Copy the code from repository] *******************************************************************************
+changed: [172.31.32.38]
+
+TASK [web : Creates the index.php file] **********************************************************************************
+fatal: [172.31.32.38]: FAILED! => {"changed": false, "msg": "AnsibleUndefinedVariable: 'dict object' has no attribute 'dbservers'"}
+
+PLAY RECAP ***************************************************************************************************************
+172.31.32.38               : ok=10   changed=3    unreachable=0    failed=1    skipped=1    rescued=0    ignored=0
+
+[root@ip-172-31-46-220 lamp_simple]#
+Broadcast message from root@ip-172-31-46-220
+        (unknown) at 11:21 ...
+
+The system is going down for power off NOW!

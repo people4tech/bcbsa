@@ -1,0 +1,202 @@
+ ===============================
+
+ To Include another YML file
+ 
+ ===============================
+
+ ---
+ # file: site.yml
+ #	- include: webservers.yml (Deprecating)
+ #	- include: dbservers.yml
+   - import_playbook: webserver.yml (This is the latest module)
+
+ ===============================
+
+ To Regster output of a command
+ ===============================
+
+ ---
+ - hosts: webservers
+   become: yes
+   tasks:
+     - shell: /usr/bin/whoami
+       register: username
+
+     - file: path=/tmp/info.txt owner={{username}}
+
+
+ =================================
+
+ Debug module is used to print messages or variable.
+
+ ---
+ - hosts: all
+   vars:
+      http_port: 8087
+      username: raghu
+
+   tasks:
+      - debug: msg="Inventory hostnames are {{inventory_hostname}}"
+      - debug: msg="Port variable is {{http_port}} & username is {{username}}"
+
+  =================================
+
+  To List all plugins available with Ansible
+
+   # ansible-doc -l
+  ==================================
+
+  Prompting for input
+
+  ---
+  - hosts: dbservers
+    vars:
+      http_port: 8087
+      username: raghu
+
+    vars_prompt:
+    - name: "dbpass"
+      prompt: "Enter password for database"
+
+    tasks:
+    - debug: msg=" DB password is {{dbpass}}"
+ ============================
+
+   Handlers
+  
+   ---
+   - hosts: webservers
+     become: yes
+     tasks:
+       - name: Copy the website config file
+         copy: src=httpd.conf dest=/etc/httpd/conf/httpd.conf
+
+         notify:
+           - Apache Restart
+
+     handlers:
+        - name: Apache Restart
+          service: name=httpd state=restart
+  ===============================
+
+  Templates
+
+  mkdir templates
+  vi templates/index.html
+
+  <html>
+  <head><title>Hello from Raghu</title></head>
+  <body>
+  <h1> Congrats ,/h1>
+  <p> Nice Job {{ username }} </p>
+  </body>
+  </html>
+ 
+      ====================
+
+  ---
+  - hosts: webservers
+    sudo: yes
+    vars:
+      username: Ashok
+      doc_root: /var/www/html/
+    tasks:
+      -name: Copy site file
+       template: src=templates/index.html dest={{doc_root}}/index.html mode=0644
+
+  ========================================================
+
+  A Sample playook with variables, templates, condition and handlers
+
+    ansible.cfg
+    inventory_prod
+    templates
+    web.yaml
+
+
+//file    ansible.cfg
+      
+       [defaults]
+       hostfile = inventory_prod
+       host_key_checking = False
+
+
+//file    inventoy_prod
+
+      web1 ansible_ssh_host=192.12.1.11
+      db1 ansible_ssh_host=192.168.1.8
+
+
+     [webservers]
+     web1
+
+     [dbservers]
+     db1
+
+     [datacenter:children]
+     webservers
+     dbservers
+
+     [datcenter:vars]
+      ansible_ssh_user=docker
+      ansibe_ssh_pass=docker
+
+//file templats/
+
+    index.html
+    httpd.conf
+
+
+//index.html
+
+  <html>
+  <head><title>Hello from Raghu</title></head>
+  <body>
+  <h1> Congrats ,/h1>
+  <p> Nice Job {{ username }} </p>
+  </body>
+  </html>
+   
+
+//httpd.conf - get it from a installation
+
+
+// web.yml
+
+  ---
+  - host: webservers
+    sudo: yes
+    vars:
+      http_port: 80
+      doc_dir: /ansible/
+      doc_root: /var/www/html/ansible/
+      max_clients: 5
+      ansible_python_interpreter: python
+    vars_prompt:
+      - name: "username"
+        prompt: what is your name ?
+    tasks:
+      - name: Ensure lib-python installed
+        yum: name=libselinux-python state=present
+      - name: ensure httpd installed
+        yum: name=httpd state=present
+        when: ansible_os_family == "RedHat"
+
+      - name: create a directory
+        file: path=/var/www/html/ansible state=directory
+
+      - name: ensure apache running
+        service: name=httpd enabled=yes state=started
+
+      - name: deploy template
+        template: src=templates/httpd.conf dest=/etc/httpd/conf/httpd.conf
+        notify:
+          - Restart apache
+
+
+       - name: copy static files
+         template: src=templates/index.html dest={{doc_root}}/index.html mode=0644
+     handlers:
+       - name: Restart apache
+         service: name=httpd state=restarted
+
