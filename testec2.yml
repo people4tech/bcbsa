@@ -1,0 +1,14 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: no
+  #- include: webserver.yml
+  tasks:
+    - name: Install httpd
+      yum: name=httpd state=latest
+    - name: start httpd service
+      service: name=httpd state=restarted
+  roles:
+  - ec2
+  - elb
+

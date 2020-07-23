@@ -1,0 +1,21 @@
+---
+# tasks file for ec2
+- name: Create an ec2 instance
+  ec2:
+         aws_access_key: "{{ aws_access_key }}"
+         aws_secret_key: "{{ aws_secret_key }}"
+         key_name: "{{ keypair }}"
+         group: default  # security group name
+         instance_type: "{{ instance_type}}"
+         image: "{{ ami }}"
+         wait: true
+         region: "{{ region }}"
+         count: 1  # default
+         count_tag:
+            Name: Demo-Linux
+         instance_tags:
+            Name: Demo-Linux
+         vpc_subnet_id: subnet-4a002f22
+         assign_public_ip: yes
+  register: ec2
+
