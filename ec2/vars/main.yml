@@ -4,6 +4,6 @@ region: ap-south-1
 instance_type: t2.micro
 ami: ami-08706cb5f68222d09  # Amazon Linux 2018
 keypair: 5july # pem file name
-aws_access_key: AKIA3LMB3HB53XWNG3PM
-aws_secret_key: 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
+aws_access_key: ##################################
+aws_secret_key: #################################
 
